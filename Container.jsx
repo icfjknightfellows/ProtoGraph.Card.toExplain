@@ -21,16 +21,15 @@ export default class ExplainerCard extends React.Component {
 
   componentDidMount() {
     if (typeof this.props.dataURL === "string"){
-      axios.all([axios.get(this.props.dataURL)])
-      .then(axios.spread((card) => {
-        console.log(card, "card")
+      axios.get(this.props.dataURL)
+      .then(card => {
         this.setState({
           card_data: card.data.data,
           card_styles: {
             backgroundColor: card.data.configuration.background_color
           }
         });
-      }));
+      });
     } else {
       this.setState({
         card_data: this.props.dataURL
