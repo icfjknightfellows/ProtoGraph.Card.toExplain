@@ -27,7 +27,6 @@ export default class ExplainerCard extends React.Component {
     if (typeof this.props.dataURL === "string"){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL)])
         .then(axios.spread((card, schema) => {
-          console.log(card, schema, "-------")
           this.setState({
             dataJSON: card.data,
             schema_data: schema.data,
