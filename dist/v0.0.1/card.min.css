@@ -1,8 +1,8 @@
-#explainer-div{
+#proto_explainer_div{
   width: 100%;
 }
 
-.explainer_header{
+.proto_explainer_header{
   font-size: 20px;
   line-height: 24px;
   font-family: sans-serif;
@@ -13,7 +13,7 @@
   padding-left:5px;
 }
 
-.explainer_text {
+.proto_explainer_text {
   margin: 0 0 6px;
   font-family: sans-serif;
   font-size: 14px;
@@ -22,20 +22,19 @@
   /*white-space: pre-wrap;*/
 }
 
-.card-div {
+.proto_card_div {
   padding: 6px 5px;
-  background-color: #005689;
   color: #fff;
   position: relative;
 }
 
-#read-more-link {
+#proto_read_more_link {
   color: white;
   cursor: pointer;
 }
 
 @media only screen and (max-width: 450px){
-  .explainer_text {
+  .proto_explainer_text {
     padding-left: 0px;
   }
 }

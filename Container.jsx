@@ -10,7 +10,8 @@ export default class ExplainerCard extends React.Component {
     console.log(dimension.width, dimension.height, "dimension")
     if (dimension.width <= 500){ // mobile
       card_styles = {
-        height : dimension.height * 0.3
+        height : dimension.height * 0.3,
+        backgroundColor: ""
       }
     } 
     this.state = {
@@ -22,8 +23,12 @@ export default class ExplainerCard extends React.Component {
     if (typeof this.props.dataURL === "string"){
       axios.all([axios.get(this.props.dataURL)])
       .then(axios.spread((card) => {
+        console.log(card, "card")
         this.setState({
-          card_data: card.data
+          card_data: card.data.data,
+          card_styles: {
+            backgroundColor: card.data.configuration.background_color
+          }
         });
       }));
     } else {
@@ -49,9 +54,9 @@ export default class ExplainerCard extends React.Component {
 
   render() {
     return (
-      <div id="main-card-div" className = "card-div" style = {this.state.card_styles}>
-        <h1 className="explainer_header"> {this.state.card_data.explainer_header} </h1>
-        <div className="explainer_text" style= {this.state.styles}>
+      <div className = "proto_card_div" style = {this.state.card_styles}>
+        <h1 className="proto_explainer_header"> {this.state.card_data.explainer_header} </h1>
+        <div className="proto_explainer_text" style= {this.state.styles}>
           <p>{this.state.card_data.explainer_text} </p> 
         </div>
       </div>
