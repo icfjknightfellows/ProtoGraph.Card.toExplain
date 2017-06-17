@@ -3,7 +3,7 @@ const webpack = require('webpack')
 module.exports = {
   entry: './main.js',
   output: {
-    library: 'Pro',
+    library: 'ProtoCard',
     path: './',
     filename: './dist/v0.0.1/card.min.js',
   },
