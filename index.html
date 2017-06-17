@@ -4,19 +4,15 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explainer Card</title>
-    <link rel="stylesheet" type="text/css" href="./dist/v0.0.1/cards.css">
+    <link rel="stylesheet" type="text/css" href="./dist/v0.0.1/card.min.css">
   </head>
   <body>
     <div id="explainer-div"></div>
-    <script src = "dist/v0.0.1/cards.js"></script>
+    <script src = "dist/v0.0.1/card.min.js"></script>
     <script type="text/javascript">
     var x = new Pro.ProtoContainer ({
       selector: document.querySelector('#explainer-div'),
       data_url: './dist/v0.0.1/sample.json'
-      // data_url: {
-      // "explainer_header": "What does the election mean for Brexit and what does Brexit mean for the election?",
-      // "explainer_text": "It is unlikely that the result will affect Brexit, with both Tories and Labour saying they will enact the referendum result, though if Labour wins we might be more likely to see a “soft Brexit” as opposed to a hard one. A number of MPs campaigned differently from the way their constituency voted, for example the Labour MP for Vauxhall, Kate Hoey, who backed Brexit, while only 22% of her constituents voted to leave. While nationally Labour campaigned for remain, many traditionally Labour constituencies voted to leave. How this plays out in the general election remains to be seen."
-      // }
     });
     </script>
   </body>
