@@ -3,17 +3,17 @@ const webpack = require('webpack')
 module.exports = {
   entry: './main.js',
   output: {
-    library: 'ProtoCard',
+    library: 'Proto',
     path: './',
     filename: './dist/v0.0.1/card.min.js',
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin()
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: JSON.stringify('production')
+    //   }
+    // }),
+    // new webpack.optimize.UglifyJsPlugin()
   ],
   node: {
     net: 'empty',

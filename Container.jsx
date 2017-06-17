@@ -19,6 +19,10 @@ export default class ExplainerCard extends React.Component {
     }
   }
 
+  get stateData() {
+    return this.state;
+  }
+
   componentDidMount() {
     if (typeof this.props.dataURL === "string"){
       axios.get(this.props.dataURL)

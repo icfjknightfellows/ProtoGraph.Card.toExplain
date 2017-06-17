@@ -1,0 +1,2 @@
+Proto = {};
+Proto.Card = {};
