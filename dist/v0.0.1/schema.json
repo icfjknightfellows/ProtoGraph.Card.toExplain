@@ -9,10 +9,12 @@
                 "background_color": {
                     "default": "#005689",
                     "id": "/properties/configuration/properties/background_color",
-                    "type": "string"
+                    "type": "string",
+                    "title": "Background Color"
                 }
             },
-            "type": "object"
+            "type": "object",
+            "title": "Config"
         },
         "data": {
             "additionalProperties": false,
@@ -20,18 +22,21 @@
             "properties": {
                 "explainer_header": {
                     "id": "/properties/data/properties/explainer_header",
-                    "type": "string"
+                    "type": "string",
+                    "title": "Title"
                 },
                 "explainer_text": {
                     "id": "/properties/data/properties/explainer_text",
-                    "type": "string"
+                    "type": "string",
+                    "title": "Description"
                 }
             },
             "required": [
                 "explainer_text",
                 "explainer_header"
             ],
-            "type": "object"
+            "type": "object",
+            "title": "Data"
         }
     },
     "required": [

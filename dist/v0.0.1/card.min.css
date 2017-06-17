@@ -2,6 +2,21 @@
   width: 100%;
 }
 
+#proto_explainer_form_div {
+  display: inline-block;
+  top: 20px;
+}
+
+#proto_explainer_card_div {
+  display: inline-block;
+  float: right;
+  top: 20px;
+}
+
+fieldset {
+  border-width: 1px;
+}
+
 .proto_explainer_header{
   font-size: 20px;
   line-height: 24px;
@@ -35,6 +50,10 @@
 
 @media only screen and (max-width: 450px){
   .proto_explainer_text {
+    padding-left: 5px;
+  }
+  #proto_explainer_card_div {
+    padding-right: 0px;
     padding-left: 0px;
   }
 }

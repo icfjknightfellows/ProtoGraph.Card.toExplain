@@ -85,11 +85,15 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       return (
-        <div>
-          <Form schema = { this.state.schema_data }
-          onChange = {((e) => this.onChangeHandler(e))} 
-          formData = {this.state.dataJSON }/>
-          {this.renderLaptop()}
+        <div className="col-sm-12">
+          <div className = "col-sm-6" id="proto_explainer_form_div">
+            <Form schema = { this.state.schema_data }
+            onChange = {((e) => this.onChangeHandler(e))} 
+            formData = {this.state.dataJSON }/>
+          </div>
+          <div className = "col-sm-6" id="proto_explainer_card_div">
+            {this.renderLaptop()}
+          </div>
         </div>
       )
     }
@@ -102,10 +106,10 @@ export default class ExplainerCard extends React.Component {
         return this.renderLaptop();
         break;
       case 'mobile' :
-        return this.renderMobile();
+        return this.renderLaptop();
         break;
       case 'tablet' :
-        return this.renderTablet();
+        return this.renderLaptop();
         break;
       case 'edit' :
         return this.renderEdit();
