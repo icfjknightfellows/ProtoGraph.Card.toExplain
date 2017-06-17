@@ -1,14 +1,11 @@
-const webpack = require('webpack')
-
 module.exports = {
   entry: './main.js',
   output: {
-    library: 'Proto',
     path: './',
     filename: './dist/v0.0.1/card.min.js',
   },
   plugins: [
-    // new webpack.DefinePlugin({
+    // new webpack.DefinePlugixn({
     //   'process.env': {
     //     NODE_ENV: JSON.stringify('production')
     //   }
