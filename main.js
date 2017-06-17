@@ -1,42 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ExpCard from './Container.jsx';
-// protoObject = {}
-Proto = {};
-Proto.Card = {};
 
-Proto.Card.toExplain = function () {
-  this.Container = ExpCard;
-  return this;
+window.ProtoGraph = window.ProtoGraph || {};
+window.ProtoGraph.Card = window.ProtoGraph.Card || {};
+
+ProtoGraph.Card.toExplain = function () {
+  this.cardType = 'ExplainerCard';
 }
 
-Proto.Card.toExplain.prototype.init = function (options) {
-  // console.log(this);
+ProtoGraph.Card.toExplain.prototype.init = function (options) {
   this.options = options;
 }
 
-Proto.Card.toExplain.prototype.setData = function (data) {
-  // console.log(this);
+ProtoGraph.Card.toExplain.prototype.setData = function (data) {
   this.data = data;
 }
 
-Proto.Card.toExplain.prototype.getData = function (data) {
-  return this.Container.stateData();
+ProtoGraph.Card.toExplain.prototype.getData = function (data) {
+  return this.containerInstance.stateData();
 }
 
-Proto.Card.toExplain.prototype.renderLaptop = function (data) {
+ProtoGraph.Card.toExplain.prototype.renderLaptop = function (data) {
   this.mode = 'laptop';
-  ReactDOM.render( <this.Container dataURL={this.options.data_url} schemaURL= {this.options.schema_url} mode = {this.mode}/>, this.options.selector);
+  this.containerInstance = <ExpCard dataURL={this.options.data_url} schemaURL= {this.options.schema_url} mode = {this.mode}/>
+  ReactDOM.render(this.containerInstance, this.options.selector);
 }
 
-Proto.Card.toExplain.prototype.renderEdit = function (data) {
+ProtoGraph.Card.toExplain.prototype.renderEdit = function (data) {
   this.mode = 'edit';
-  ReactDOM.render( <this.Container dataURL={this.options.data_url} schemaURL= {this.options.schema_url} mode = {this.mode}/>, this.options.selector);
+  ReactDOM.render( <ExpCard dataURL={this.options.data_url} schemaURL= {this.options.schema_url} mode = {this.mode}/>, this.options.selector);
 }
-
-module.exports = Proto 
-
-
-
-//     var root_element = options.selector.constructor === String ? document.querySelector(options.selector) : options.selector;
-//     ReactDOM.render( <Container dataURL={options.data_url} containerURL={options.container_data_url} />, root_element);
