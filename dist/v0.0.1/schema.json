@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "https://s3.ap-south-1.amazonaws.com/protos.dev/json-schemas/explainer.json",
+  "properties": {
+    "explainer_header": {
+      "id": "/properties/explainer_header",
+      "title": "Explainer Header.",
+      "type": "string"
+    },
+    "explainer_text": {
+      "default": "",
+      "description": "",
+      "id": "/properties/explainer_text",
+      "title": "Explainer Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "explainer_text",
+    "explainer_header"
+  ],
+  "type": "object"
+}
+
