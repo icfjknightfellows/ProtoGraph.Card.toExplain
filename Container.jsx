@@ -4,7 +4,7 @@ import axios from 'axios';
 import Form from 'react-jsonschema-form';
 
 export default class ExplainerCard extends React.Component {
-  constructor(props) {  
+  constructor(props) {
     super(props)
     let card_styles = {
       backgroundColor: ""
@@ -16,6 +16,10 @@ export default class ExplainerCard extends React.Component {
       },
       schema_data: undefined
     }
+  }
+
+  exportData() {
+    return this.state;
   }
 
   componentDidMount() {
@@ -36,7 +40,7 @@ export default class ExplainerCard extends React.Component {
       this.setState({
         dataJSON: this.props.dataURL
       });
-    }  
+    }
   }
 
   getScreenSize() {
@@ -73,7 +77,7 @@ export default class ExplainerCard extends React.Component {
       <div className = "proto_card_div" style = {this.state.card_styles}>
         <h1 className="proto_explainer_header"> {data.explainer_header} </h1>
         <div className="proto_explainer_text" style= {this.state.styles}>
-          <p>{data.explainer_text} </p> 
+          <p>{data.explainer_text} </p>
         </div>
       </div>
     )
@@ -115,6 +119,6 @@ export default class ExplainerCard extends React.Component {
         return this.renderEdit();
         break;
     }
-    
+
   }
 }

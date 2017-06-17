@@ -28,16 +28,16 @@ ProtoGraph compatible Explainer Card.
     * The function should be under the `Pro` Library.
     * The syntanx will be used as:
     ---
-        var x = new Proto.Card.toExplain ({
+        var x = new Protograph.Card.toExplain ({
             selector: document.querySelector('#selector'),
             data_url: 'url/to/sample.json',
-            mode: 'mobile_grabbable'
+            schema_url: 'url/to/schema.json'
         });
 
 `Production`
 * The folder structure for the distribution should be as follows:
     * `dist/`
-        * `0.0.1 // version number` 
+        * `v0.0.1 // version number` 
             * `card.min.js`
             * `card.min.css`
             * `index.html`
@@ -45,10 +45,10 @@ ProtoGraph compatible Explainer Card.
             * `sample.json`
             * `card.ai`
             * `card.png`
-        * `0.1.1`
+        * `v0.1.1`
             * =====
             * =====
-        * `1.0.0` 
+        * `v1.0.0` 
             * =====
             * =====
 * All the files inside the version folders are mandatory.
