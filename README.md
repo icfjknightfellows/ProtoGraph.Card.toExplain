@@ -41,7 +41,7 @@ ProtoGraph compatible Explainer Card.
             * `card.min.js`
             * `card.min.css`
             * `index.html`
-            * `shema.json`
+            * `schema.json`
             * `sample.json`
             * `card.ai`
             * `card.png`
