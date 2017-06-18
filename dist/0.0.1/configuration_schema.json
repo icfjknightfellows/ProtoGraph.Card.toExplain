@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "mandatory": {
+      "id": "/properties/mandatory",
+      "properties": {},
+      "type": "object"
+    },
+    "optional": {
+      "id": "/properties/optional",
+      "properties": {
+        "background_color": {
+          "default": "white",
+          "description": "",
+          "id": "/properties/optional/properties/background_color",
+          "title": "Background Color",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}
