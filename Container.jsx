@@ -94,9 +94,9 @@ export default class ExplainerCard extends React.Component {
     }
     // console.log(data, "data-----", this.state.step, this.state.configJSON)
     return (
-      <div className = "proto_card_div" style = {styles}>
-        <h1 className="proto_explainer_header"> {data.explainer_header} </h1>
-        <div className="proto_explainer_text">
+      <div className = "protograph_card_div" style = {styles}>
+        <h1 className="protograph_explainer_header"> {data.explainer_header} </h1>
+        <div className="protograph_explainer_text">
           <p>{data.explainer_text} </p>
         </div>
       </div>
@@ -104,7 +104,6 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderSchemaJSON() {
-    console.log(this.state.step, "renderSchemaJSON")
     switch(this.state.step){
       case 1:
         return this.state.configSchemaJSON.properties.mandatory;
@@ -173,16 +172,16 @@ export default class ExplainerCard extends React.Component {
     } else {
       return (
         <div className="col-sm-12">
-          <div className = "col-sm-6" id="proto_explainer_form_div">
+          <div className = "col-sm-6" id="protograph-explainer-form-div">
             <Form schema = {this.renderSchemaJSON()}
             onSubmit = {((e) => this.onSubmitHandler(e))}
             onChange = {((e) => this.onChangeHandler(e))} 
             formData = {this.renderFormData()}>
-            <a id="proto_prev_link"onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
+            <a id="protograph-prev-link"onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
             <button type="submit" className="btn btn-info">{this.showButtonText()}</button>
             </Form>
           </div>
-          <div className = "col-sm-6" id="proto_explainer_card_div">
+          <div className = "col-sm-6" id="protograph-explainer-card-div">
             {this.renderLaptop()}
           </div>
         </div>

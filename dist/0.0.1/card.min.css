@@ -1,19 +1,19 @@
-#proto_explainer_div{
+/*#proto_explainer_div{
   width: 100%;
-}
+}*/
 
-#proto_explainer_form_div {
+#protograph-explainer-form-div {
   display: inline-block;
   top: 20px;
 }
 
-#proto_explainer_card_div {
+#protograph-explainer-card-div {
   display: inline-block;
   float: right;
   top: 20px;
 }
 
-#proto_prev_link {
+#protograph-prev-link {
   cursor: pointer;
 }
 
@@ -21,7 +21,7 @@ fieldset {
   border-width: 1px;
 }
 
-.proto_explainer_header{
+.protograph_explainer_header{
   font-size: 20px;
   line-height: 24px;
   font-family: sans-serif;
@@ -32,7 +32,7 @@ fieldset {
   padding-left:5px;
 }
 
-.proto_explainer_text {
+.protograph_explainer_text {
   margin: 0 0 6px;
   font-family: sans-serif;
   font-size: 14px;
@@ -41,22 +41,22 @@ fieldset {
   /*white-space: pre-wrap;*/
 }
 
-.proto_card_div {
+.protograph_card_div {
   padding: 6px 5px;
   color: #fff;
   position: relative;
 }
 
-#proto_read_more_link {
+/*#proto_read_more_link {
   color: white;
   cursor: pointer;
-}
+}*/
 
 @media only screen and (max-width: 450px){
-  .proto_explainer_text {
+  .protograph_explainer_text {
     padding-left: 5px;
   }
-  #proto_explainer_card_div {
+  #protograph-explainer-card-div {
     padding-right: 0px;
     padding-left: 0px;
   }
