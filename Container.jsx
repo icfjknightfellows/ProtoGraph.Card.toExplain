@@ -12,9 +12,6 @@ export default class ExplainerCard extends React.Component {
       schemaJSON: undefined,
       configSchemaJSON: undefined,
       configJSON: {}
-      // card_styles: {
-      //   backgroundColor: ""
-      // }
     }
   }
 
@@ -31,22 +28,10 @@ export default class ExplainerCard extends React.Component {
             dataJSON: card.data,
             schemaJSON: schema.data,
             configSchemaJSON: config_schema.data,
-            configJSON: config.data
-            // card_styles: {
-            //   backgroundColor: config.data.optional.background_color
-            // }
+            configJSON: config.data.optional
           });
         }));
     } 
-    // else {
-    //   console.log(this.props.configURL, this.props.dataURL, "this.props.configURL")
-    //   this.setState({
-    //     dataJSON: this.props.dataURL
-    //   });
-    //   card_styles: {
-    //     backgroundColor: this.props.configURL
-    //   }
-    // }
   }
 
   getScreenSize() {
@@ -65,41 +50,49 @@ export default class ExplainerCard extends React.Component {
 
   onChangeHandler({formData}) {
     console.log(formData, this.state.step, "...................")
-    if (this.state.step === 1) {
-      this.setState({
-        dataJSON: formData
-      });
-    } else {
-      console.log("else", formData.optional.background_color)
-      this.setState({
-        // card_styles: {
-        //   backgroundColor: formData.optional.background_color
-        // }
-        configJSON: formData
-      })
+    switch (this.state.step) {
+      case 1: 
+        break;
+      case 2:
+        this.setState({
+          dataJSON: formData
+        });
+        break;
+      case 3:
+        this.setState({
+          configJSON: formData
+        })
+        break;
     }
   }
 
   onSubmitHandler({formData}) {
-    console.log(this.state.dataJSON, formData, "on Submit =======================")
-    if (this.state.step === 1) {
-      this.setState({
-        step: 2,
-        dataJSON: formData
-      });
-    } else {
-      alert("You submitted the form");
+    console.log(formData, "on Submit =======================")
+    switch(this.state.step) {
+      case 1:
+        this.setState({
+          step: 2
+        });
+        break;
+      case 2:
+        this.setState({
+          step: 3,
+          dataJSON: formData
+        });
+        break;
+      case 3:
+        alert("The card is published");
+        break;
     }
   }
 
   renderLaptop() {
-    // const dataJSON = this.state.dataJSON,
-    //   data = dataJSON ? dataJSON.data : {};
+    console.log(this.state.configJSON, this.state.step,"inside his.state.configJSON")
     const data = this.state.dataJSON;
-    const styles = {
-      backgroundColor: this.state.configJSON.optional.background_color
+    let styles = {
+      backgroundColor: this.state.configJSON.background_color
     }
-    // console.log(this.state.dataJSON.data.explainer_header)
+    // console.log(data, "data-----", this.state.step, this.state.configJSON)
     return (
       <div className = "proto_card_div" style = {styles}>
         <h1 className="proto_explainer_header"> {data.explainer_header} </h1>
@@ -110,6 +103,60 @@ export default class ExplainerCard extends React.Component {
     )
   }
 
+  renderSchemaJSON() {
+    switch(this.state.step){
+      case 1:
+        return this.state.configSchemaJSON.properties.mandatory;
+        break;
+      case 3:
+        return this.state.configSchemaJSON.properties.optional;
+        break;
+      case 2: 
+        return this.state.schemaJSON; 
+        break;
+    }
+  }
+
+  renderFormData() {
+    switch(this.state.step) {
+      case 1:
+        return this.state.configJSON.mandatory;
+        break;
+      case 3:
+        return this.state.configJSON;
+        break;
+      case 2:
+        return this.state.dataJSON;
+        break;
+    }
+  }
+
+  showLinkText() {
+    switch(this.state.step) {
+      case 1:
+        return '';
+        break;
+      case 2:
+        return '< Back to Mandatory selection';
+        break;
+      case 3:
+        return '< Back to building the card';
+        break;
+    }
+  }
+
+  showButtonText() {
+    switch(this.state.step) {
+      case 1:       
+      case 2:
+        return 'Proceed to next step';
+        break;
+      case 3:
+        return 'Publish';
+        break;
+    }
+  }
+
   renderEdit() {
     // console.log(this.state.dataJSON, this.props, this.state.schemaJSON, "schema data")
     if (this.state.schemaJSON === undefined) {
@@ -118,10 +165,13 @@ export default class ExplainerCard extends React.Component {
       return (
         <div className="col-sm-12">
           <div className = "col-sm-6" id="proto_explainer_form_div">
-            <Form schema = { this.state.step === 1 ? this.state.schemaJSON : this.state.configSchemaJSON }
+            <Form schema = {this.renderSchemaJSON()}
             onSubmit = {((e) => this.onSubmitHandler(e))}
             onChange = {((e) => this.onChangeHandler(e))} 
-            formData = { this.state.step === 1 ? this.state.dataJSON : this.state.configJSON} />
+            formData = {this.renderFormData()}>
+            <a href="#">{this.showLinkText()} </a>
+            <button type="submit" className="btn btn-info">{this.showButtonText()}</button>
+            </Form>
           </div>
           <div className = "col-sm-6" id="proto_explainer_card_div">
             {this.renderLaptop()}

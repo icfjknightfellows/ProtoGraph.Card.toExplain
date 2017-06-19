@@ -6,7 +6,8 @@
     "mandatory": {
       "id": "/properties/mandatory",
       "properties": {},
-      "type": "object"
+      "type": "object",
+      "title": "Mandatory Section"
     },
     "optional": {
       "id": "/properties/optional",
@@ -19,6 +20,7 @@
           "type": "string"
         }
       },
+      "title": "Optional Section",
       "type": "object"
     }
   },
