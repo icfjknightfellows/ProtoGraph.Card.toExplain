@@ -2,7 +2,7 @@ module.exports = {
   entry: './main.js',
   output: {
     path: './',
-    filename: './dist/v0.0.1/card.min.js',
+    filename: './dist/0.0.1/card.min.js',
   },
   plugins: [
     // new webpack.DefinePlugixn({

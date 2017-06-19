@@ -6,15 +6,15 @@ import Form from 'react-jsonschema-form';
 export default class ExplainerCard extends React.Component {
   constructor(props) {
     super(props)
-    let card_styles = {
-      backgroundColor: ""
-    }
     this.state = {
-      dataJSON: {
-        data: {},
-        configuration: {}
-      },
-      schema_data: undefined
+      step: 1,
+      dataJSON: {},
+      schemaJSON: undefined,
+      configSchemaJSON: undefined,
+      configJSON: {}
+      // card_styles: {
+      //   backgroundColor: ""
+      // }
     }
   }
 
@@ -25,21 +25,28 @@ export default class ExplainerCard extends React.Component {
   componentDidMount() {
     // get sample json data based on type i.e string or object
     if (typeof this.props.dataURL === "string"){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL)])
-        .then(axios.spread((card, schema) => {
+      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.configURL), axios.get(this.props.configSchemaURL)])
+        .then(axios.spread((card, schema, config, config_schema) => {
           this.setState({
             dataJSON: card.data,
-            schema_data: schema.data,
-            card_styles: {
-              backgroundColor: card.data.configuration.background_color
-            }
+            schemaJSON: schema.data,
+            configSchemaJSON: config_schema.data,
+            configJSON: config.data
+            // card_styles: {
+            //   backgroundColor: config.data.optional.background_color
+            // }
           });
         }));
-    } else {
-      this.setState({
-        dataJSON: this.props.dataURL
-      });
-    }
+    } 
+    // else {
+    //   console.log(this.props.configURL, this.props.dataURL, "this.props.configURL")
+    //   this.setState({
+    //     dataJSON: this.props.dataURL
+    //   });
+    //   card_styles: {
+    //     backgroundColor: this.props.configURL
+    //   }
+    // }
   }
 
   getScreenSize() {
@@ -57,25 +64,46 @@ export default class ExplainerCard extends React.Component {
   }
 
   onChangeHandler({formData}) {
-    console.log(formData,"...................")
-    this.setState({
-      dataJSON: formData,
-      card_styles: {
-        backgroundColor: formData.configuration.background_color
-      }
-    });
+    console.log(formData, this.state.step, "...................")
+    if (this.state.step === 1) {
+      this.setState({
+        dataJSON: formData
+      });
+    } else {
+      console.log("else", formData.optional.background_color)
+      this.setState({
+        // card_styles: {
+        //   backgroundColor: formData.optional.background_color
+        // }
+        configJSON: formData
+      })
+    }
+  }
+
+  onSubmitHandler({formData}) {
+    console.log(this.state.dataJSON, formData, "on Submit =======================")
+    if (this.state.step === 1) {
+      this.setState({
+        step: 2,
+        dataJSON: formData
+      });
+    } else {
+      alert("You submitted the form");
+    }
   }
 
   renderLaptop() {
-    console.log(this.state.dataJSON);
     // const dataJSON = this.state.dataJSON,
     //   data = dataJSON ? dataJSON.data : {};
-    const data = this.state.dataJSON.data;
+    const data = this.state.dataJSON;
+    const styles = {
+      backgroundColor: this.state.configJSON.optional.background_color
+    }
     // console.log(this.state.dataJSON.data.explainer_header)
     return (
-      <div className = "proto_card_div" style = {this.state.card_styles}>
+      <div className = "proto_card_div" style = {styles}>
         <h1 className="proto_explainer_header"> {data.explainer_header} </h1>
-        <div className="proto_explainer_text" style= {this.state.styles}>
+        <div className="proto_explainer_text">
           <p>{data.explainer_text} </p>
         </div>
       </div>
@@ -83,16 +111,17 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderEdit() {
-    // console.log(this.state.dataJSON, this.props, this.state.schema_data, "schema data")
-    if (this.state.schema_data === undefined) {
+    // console.log(this.state.dataJSON, this.props, this.state.schemaJSON, "schema data")
+    if (this.state.schemaJSON === undefined) {
       return(<div>Loading</div>)
     } else {
       return (
         <div className="col-sm-12">
           <div className = "col-sm-6" id="proto_explainer_form_div">
-            <Form schema = { this.state.schema_data }
+            <Form schema = { this.state.step === 1 ? this.state.schemaJSON : this.state.configSchemaJSON }
+            onSubmit = {((e) => this.onSubmitHandler(e))}
             onChange = {((e) => this.onChangeHandler(e))} 
-            formData = {this.state.dataJSON }/>
+            formData = { this.state.step === 1 ? this.state.dataJSON : this.state.configJSON} />
           </div>
           <div className = "col-sm-6" id="proto_explainer_card_div">
             {this.renderLaptop()}
