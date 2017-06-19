@@ -13,6 +13,10 @@
   top: 20px;
 }
 
+#proto_prev_link {
+  cursor: pointer;
+}
+
 fieldset {
   border-width: 1px;
 }

@@ -49,7 +49,7 @@ export default class ExplainerCard extends React.Component {
   }
 
   onChangeHandler({formData}) {
-    console.log(formData, this.state.step, "...................")
+    // console.log(formData, this.state.step, "...................")
     switch (this.state.step) {
       case 1: 
         break;
@@ -67,7 +67,7 @@ export default class ExplainerCard extends React.Component {
   }
 
   onSubmitHandler({formData}) {
-    console.log(formData, "on Submit =======================")
+    // console.log(formData, "on Submit =======================")
     switch(this.state.step) {
       case 1:
         this.setState({
@@ -87,7 +87,7 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderLaptop() {
-    console.log(this.state.configJSON, this.state.step,"inside his.state.configJSON")
+    // console.log(this.state.configJSON, this.state.step,"inside his.state.configJSON")
     const data = this.state.dataJSON;
     let styles = {
       backgroundColor: this.state.configJSON.background_color
@@ -104,6 +104,7 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderSchemaJSON() {
+    console.log(this.state.step, "renderSchemaJSON")
     switch(this.state.step){
       case 1:
         return this.state.configSchemaJSON.properties.mandatory;
@@ -157,6 +158,14 @@ export default class ExplainerCard extends React.Component {
     }
   }
 
+  onPrevHandler() {
+    let prev_step = --this.state.step;
+    this.setState({
+      step: prev_step
+    })  
+    console.log("show prev step", this.state.step)
+  }
+
   renderEdit() {
     // console.log(this.state.dataJSON, this.props, this.state.schemaJSON, "schema data")
     if (this.state.schemaJSON === undefined) {
@@ -169,7 +178,7 @@ export default class ExplainerCard extends React.Component {
             onSubmit = {((e) => this.onSubmitHandler(e))}
             onChange = {((e) => this.onChangeHandler(e))} 
             formData = {this.renderFormData()}>
-            <a href="#">{this.showLinkText()} </a>
+            <a id="proto_prev_link"onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
             <button type="submit" className="btn btn-info">{this.showButtonText()}</button>
             </Form>
           </div>
