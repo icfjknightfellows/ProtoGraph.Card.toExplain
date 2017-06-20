@@ -8,28 +8,38 @@ export default class ExplainerCard extends React.Component {
     super(props)
     this.state = {
       step: 1,
-      dataJSON: {},
+      dataJSON: {
+        data: {},
+        configs: {}
+      },
       schemaJSON: undefined,
-      configSchemaJSON: undefined,
-      configJSON: {}
+      optionalConfigJSON: {},
+      optionalConfigSchemaJSON: undefined,
+      mandatoryConfigJSON: {}, 
+      mandatoryConfigSchemaJSON: undefined                
     }
   }
 
   exportData() {
-    console.log(this.state)
-    return this.state;
+    return this.state
   }
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
     if (typeof this.props.dataURL === "string"){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.configURL), axios.get(this.props.configSchemaURL)])
-        .then(axios.spread((card, schema, config, config_schema) => {
+      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL), axios.get(this.props.mandatoryConfigURL),axios.get(this.props.mandatoryConfigSchemaURL)])
+        .then(axios.spread((card, schema, opt_config, opt_config_schema, mandatory_config, mandatory_config_schema) => {
+          console.log(mandatory_config.data, "mandatory_config")
           this.setState({
-            dataJSON: card.data,
+            dataJSON: {
+              data: card.data,
+              configs: opt_config.data
+            },
             schemaJSON: schema.data,
-            configSchemaJSON: config_schema.data,
-            configJSON: config.data.optional
+            optionalConfigJSON: opt_config.data,
+            optionalConfigSchemaJSON: opt_config_schema.data,
+            mandatoryConfigJSON: mandatory_config.data, 
+            mandatoryConfigSchemaJSON: mandatory_config_schema.data
           });
         }));
     } 
@@ -50,18 +60,26 @@ export default class ExplainerCard extends React.Component {
   }
 
   onChangeHandler({formData}) {
-    // console.log(formData, this.state.step, "...................")
+    // console.log(formData, "...................")
     switch (this.state.step) {
       case 1: 
         break;
       case 2:
-        this.setState({
-          dataJSON: formData
-        });
+        this.setState((prevStep, prop) => {
+          let dataJSON = prevStep.dataJSON;
+          dataJSON.data = formData
+          return {
+            dataJSON: dataJSON  
+          }
+        })
         break;
       case 3:
-        this.setState({
-          configJSON: formData
+        this.setState((prevStep, prop) => {
+          let dataJSON = prevStep.dataJSON;
+          dataJSON.configs.background_color = formData.background_color
+          return {
+            dataJSON: dataJSON  
+          }
         })
         break;
     }
@@ -77,8 +95,7 @@ export default class ExplainerCard extends React.Component {
         break;
       case 2:
         this.setState({
-          step: 3,
-          dataJSON: formData
+          step: 3
         });
         break;
       case 3:
@@ -89,11 +106,11 @@ export default class ExplainerCard extends React.Component {
 
   renderLaptop() {
     // console.log(this.state.configJSON, this.state.step,"inside his.state.configJSON")
-    const data = this.state.dataJSON;
-    let styles = {
-      backgroundColor: this.state.configJSON.background_color
-    }
+    const data = this.state.dataJSON.data;
+    let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
     // console.log(data, "data-----", this.state.step, this.state.configJSON)
+    
+    // console.log(styles,';;;;;;;')
     return (
       <div className = "protograph_card_div" style = {styles}>
         <h1 className="protograph_explainer_header"> {data.explainer_header} </h1>
@@ -105,14 +122,15 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderSchemaJSON() {
+    // console.log(this.state.optionalConfigSchemaJSON, "this.state.configSchemaJSON")
     switch(this.state.step){
       case 1:
-        return this.state.configSchemaJSON.properties.mandatory;
+        return this.state.mandatoryConfigSchemaJSON;
         break;
       case 3:
-        return this.state.configSchemaJSON.properties.optional;
+        return this.state.optionalConfigSchemaJSON;
         break;
-      case 2: 
+      case 2:
         return this.state.schemaJSON; 
         break;
     }
@@ -121,13 +139,13 @@ export default class ExplainerCard extends React.Component {
   renderFormData() {
     switch(this.state.step) {
       case 1:
-        return this.state.configJSON.mandatory;
+        return {};
         break;
       case 3:
-        return this.state.configJSON;
+        return this.state.dataJSON.configs;
         break;
       case 2:
-        return this.state.dataJSON;
+        return this.state.dataJSON.data;
         break;
     }
   }
@@ -163,7 +181,6 @@ export default class ExplainerCard extends React.Component {
     this.setState({
       step: prev_step
     })  
-    console.log("show prev step", this.state.step)
   }
 
   renderEdit() {
@@ -191,7 +208,6 @@ export default class ExplainerCard extends React.Component {
   }
 
   render() {
-    // console.log(this.props.mode, "mode")
     switch(this.props.mode) {
       case 'laptop' :
         return this.renderLaptop();
