@@ -62,9 +62,9 @@ export default class ExplainerCard extends React.Component {
   onChangeHandler({formData}) {
     // console.log(formData, "...................")
     switch (this.state.step) {
-      case 1: 
-        break;
-      case 2:
+      // case 1: 
+      //   break;
+      case 1:
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
           dataJSON.data = formData
@@ -73,7 +73,7 @@ export default class ExplainerCard extends React.Component {
           }
         })
         break;
-      case 3:
+      case 2:
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
           dataJSON.configs.background_color = formData.background_color
@@ -88,17 +88,17 @@ export default class ExplainerCard extends React.Component {
   onSubmitHandler({formData}) {
     // console.log(formData, "on Submit =======================")
     switch(this.state.step) {
+      // case 1:
+      //   this.setState({
+      //     step: 2
+      //   });
+      //   break;
       case 1:
         this.setState({
           step: 2
         });
         break;
       case 2:
-        this.setState({
-          step: 3
-        });
-        break;
-      case 3:
         alert("The card is published");
         break;
     }
@@ -124,13 +124,13 @@ export default class ExplainerCard extends React.Component {
   renderSchemaJSON() {
     // console.log(this.state.optionalConfigSchemaJSON, "this.state.configSchemaJSON")
     switch(this.state.step){
-      case 1:
-        return this.state.mandatoryConfigSchemaJSON;
-        break;
-      case 3:
+      // case 1:
+      //   return this.state.mandatoryConfigSchemaJSON;
+      //   break;
+      case 2:
         return this.state.optionalConfigSchemaJSON;
         break;
-      case 2:
+      case 1:
         return this.state.schemaJSON; 
         break;
     }
@@ -138,13 +138,13 @@ export default class ExplainerCard extends React.Component {
 
   renderFormData() {
     switch(this.state.step) {
-      case 1:
-        return {};
-        break;
-      case 3:
+      // case 1:
+      //   return {};
+      //   break;
+      case 2:
         return this.state.dataJSON.configs;
         break;
-      case 2:
+      case 1:
         return this.state.dataJSON.data;
         break;
     }
@@ -152,13 +152,14 @@ export default class ExplainerCard extends React.Component {
 
   showLinkText() {
     switch(this.state.step) {
+      // case 1:
+      //   return '';
+      //   break;
       case 1:
         return '';
+        // return '< Back to Mandatory selection';
         break;
       case 2:
-        return '< Back to Mandatory selection';
-        break;
-      case 3:
         return '< Back to building the card';
         break;
     }
@@ -166,11 +167,11 @@ export default class ExplainerCard extends React.Component {
 
   showButtonText() {
     switch(this.state.step) {
-      case 1:       
-      case 2:
+      // case 1:       
+      case 1:
         return 'Proceed to next step';
         break;
-      case 3:
+      case 2:
         return 'Publish';
         break;
     }
