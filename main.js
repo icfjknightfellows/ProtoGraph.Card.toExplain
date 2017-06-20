@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ExpCard from './Container.jsx';
+import ExpCard from './src/js/Container.jsx';
 
 window.ProtoGraph = window.ProtoGraph || {};
 window.ProtoGraph.Card = window.ProtoGraph.Card || {};

@@ -16,6 +16,7 @@ export default class ExplainerCard extends React.Component {
   }
 
   exportData() {
+    console.log(this.state)
     return this.state;
   }
 
