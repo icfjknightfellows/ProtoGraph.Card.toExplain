@@ -21,7 +21,17 @@ export default class ExplainerCard extends React.Component {
   }
 
   exportData() {
-    return this.state
+    let getDataObj = {
+      dataJSON: this.state.dataJSON.data,
+      schemaJSON: this.state.schemaJSON,
+      optionalConfigJSON: this.state.optionalConfigJSON,
+      optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON,
+      mandatoryConfigJSON: this.state.mandatoryConfigJSON, 
+      mandatoryConfigSchemaJSON: this.state.mandatoryConfigSchemaJSON
+    }
+    console.log(getDataObj, "=====getdata=====")
+    return getDataObj;
+    // return this.state
   }
 
   componentDidMount() {
@@ -29,7 +39,6 @@ export default class ExplainerCard extends React.Component {
     if (typeof this.props.dataURL === "string"){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL), axios.get(this.props.mandatoryConfigURL),axios.get(this.props.mandatoryConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema, mandatory_config, mandatory_config_schema) => {
-          console.log(mandatory_config.data, "mandatory_config")
           this.setState({
             dataJSON: {
               data: card.data,
