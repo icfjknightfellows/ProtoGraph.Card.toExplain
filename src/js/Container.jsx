@@ -9,25 +9,21 @@ export default class ExplainerCard extends React.Component {
     this.state = {
       step: 1,
       dataJSON: {
-        data: {},
+        card_data: {},
         configs: {}
       },
       schemaJSON: undefined,
       optionalConfigJSON: {},
-      optionalConfigSchemaJSON: undefined,
-      mandatoryConfigJSON: {}, 
-      mandatoryConfigSchemaJSON: undefined                
+      optionalConfigSchemaJSON: undefined               
     }
   }
 
   exportData() {
     let getDataObj = {
-      dataJSON: this.state.dataJSON.data,
+      dataJSON: this.state.dataJSON.card_data,
       schemaJSON: this.state.schemaJSON,
       optionalConfigJSON: this.state.optionalConfigJSON,
-      optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON,
-      mandatoryConfigJSON: this.state.mandatoryConfigJSON, 
-      mandatoryConfigSchemaJSON: this.state.mandatoryConfigSchemaJSON
+      optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
     console.log(getDataObj, "=====getdata=====")
     return getDataObj;
@@ -37,18 +33,17 @@ export default class ExplainerCard extends React.Component {
   componentDidMount() {
     // get sample json data based on type i.e string or object
     if (typeof this.props.dataURL === "string"){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL), axios.get(this.props.mandatoryConfigURL),axios.get(this.props.mandatoryConfigSchemaURL)])
-        .then(axios.spread((card, schema, opt_config, opt_config_schema, mandatory_config, mandatory_config_schema) => {
+      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
+        .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
+          // console.log(card.data, schema.data, opt_config.data, opt_config_schema.data, "=============")
           this.setState({
             dataJSON: {
-              data: card.data,
-              configs: opt_config.data
+              card_data: card.data,
+              configs: opt_config.data             
             },
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
-            optionalConfigSchemaJSON: opt_config_schema.data,
-            mandatoryConfigJSON: mandatory_config.data, 
-            mandatoryConfigSchemaJSON: mandatory_config_schema.data
+            optionalConfigSchemaJSON: opt_config_schema.data
           });
         }));
     } 
@@ -76,7 +71,7 @@ export default class ExplainerCard extends React.Component {
       case 1:
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
-          dataJSON.data = formData
+          dataJSON.card_data = formData
           return {
             dataJSON: dataJSON  
           }
@@ -85,7 +80,8 @@ export default class ExplainerCard extends React.Component {
       case 2:
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
-          dataJSON.configs.background_color = formData.background_color
+          console.log(dataJSON, "dataJSON")
+          dataJSON.configs = formData
           return {
             dataJSON: dataJSON  
           }
@@ -114,23 +110,24 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderLaptop() {
-    // console.log(this.state.configJSON, this.state.step,"inside his.state.configJSON")
-    const data = this.state.dataJSON.data;
+    // console.log(this.state.dataJSON.card_data,this.state.dataJSON.configs, "renderLaptop")
+    const data = this.state.dataJSON.card_data;
     let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
-    // console.log(data, "data-----", this.state.step, this.state.configJSON)
+    // console.log("data-----", this.state.step, styles)
     
     // console.log(styles,';;;;;;;')
     return (
       <div className = "protograph_card_div" style = {styles}>
-        <h1 className="protograph_explainer_header"> {data.explainer_header} </h1>
+        <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1>
         <div className="protograph_explainer_text">
-          <p>{data.explainer_text} </p>
+          <p>{data.data.explainer_text} </p>
         </div>
       </div>
     )
   }
 
   renderSchemaJSON() {
+    // console.log(this.state.schemaJSON, "renderSchemaJSON")
     // console.log(this.state.optionalConfigSchemaJSON, "this.state.configSchemaJSON")
     switch(this.state.step){
       // case 1:
@@ -146,6 +143,7 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderFormData() {
+    // console.log(this.state.dataJSON.card_data, "renderFormData")
     switch(this.state.step) {
       // case 1:
       //   return {};
@@ -154,7 +152,7 @@ export default class ExplainerCard extends React.Component {
         return this.state.dataJSON.configs;
         break;
       case 1:
-        return this.state.dataJSON.data;
+        return this.state.dataJSON.card_data;
         break;
     }
   }
