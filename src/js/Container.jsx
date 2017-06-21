@@ -20,6 +20,7 @@ export default class ExplainerCard extends React.Component {
 
   exportData() {
     let getDataObj = {
+      step: this.state.step,
       dataJSON: this.state.dataJSON.card_data,
       schemaJSON: this.state.schemaJSON,
       optionalConfigJSON: this.state.optionalConfigJSON,
@@ -84,7 +85,8 @@ export default class ExplainerCard extends React.Component {
           console.log(dataJSON, "dataJSON")
           dataJSON.configs = formData
           return {
-            dataJSON: dataJSON  
+            dataJSON: dataJSON,
+            optionalConfigJSON: dataJSON
           }
         })
         break;
