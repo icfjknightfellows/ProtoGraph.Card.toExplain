@@ -124,6 +124,12 @@ export default class ExplainerCard extends React.Component {
     }
   }
 
+  renderSEO() {
+    console.log(this.state.dataJSON.card_data, "this.state.dataJSON in seo mode")
+    let seo_blockquote = `<blockquote><h3>${this.state.dataJSON.card_data.data.explainer_header}</h3><p>${this.state.dataJSON.card_data.data.explainer_text}</p></blockquote>`
+    return seo_blockquote;
+  }
+
   renderSchemaJSON() {
     switch(this.state.step){
       case 1:

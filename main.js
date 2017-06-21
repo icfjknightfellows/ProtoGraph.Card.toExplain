@@ -21,6 +21,11 @@ ProtoGraph.Card.toExplain.prototype.getData = function (data) {
   return this.containerInstance.exportData();
 }
 
+ProtoGraph.Card.toExplain.prototype.renderSEO = function (data) {
+  this.renderMode = 'SEO';
+  return this.containerInstance.renderSEO();
+}
+
 ProtoGraph.Card.toExplain.prototype.renderLaptop = function (data) {
   console.log(window, "inside renderLaptop methos", this)
   var that = this;
