@@ -85,7 +85,8 @@ export default class ExplainerCard extends React.Component {
           console.log(dataJSON, "dataJSON")
           dataJSON.configs = formData
           return {
-            dataJSON: dataJSON  
+            dataJSON: dataJSON,
+            optionalConfigJSON: dataJSON
           }
         })
         break;
