@@ -26,18 +26,15 @@ export default class ExplainerCard extends React.Component {
       optionalConfigJSON: this.state.optionalConfigJSON,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
-    console.log(getDataObj, "=====getdata=====")
     return getDataObj;
     // return this.state
   }
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
-    console.log(this.props.dataURL, "this.props.dataURL")
     if (typeof this.props.dataURL === "string"){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
-          console.log(card.data, schema.data, opt_config.data, opt_config_schema.data, "=============")
           this.setState({
             dataJSON: {
               card_data: card.data,
@@ -66,7 +63,6 @@ export default class ExplainerCard extends React.Component {
   }
 
   onChangeHandler({formData}) {
-    // console.log(formData, "...................")
     switch (this.state.step) {
       // case 1: 
       //   break;
@@ -94,7 +90,6 @@ export default class ExplainerCard extends React.Component {
   }
 
   onSubmitHandler({formData}) {
-    // console.log(formData, "on Submit =======================")
     switch(this.state.step) {
       // case 1:
       //   this.setState({
@@ -113,11 +108,9 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderLaptop() {
-    console.log(this.props.schemaJSON, "this.props.schemaJSON")
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
     } else {
-      console.log(this.state.dataJSON.card_data,this.state.dataJSON.configs, "renderLaptop")
       const data = this.state.dataJSON.card_data;
       let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
       // console.log("data-----", this.state.step, styles)
