@@ -32,10 +32,11 @@ export default class ExplainerCard extends React.Component {
 
   componentDidMount() {
     // get sample json data based on type i.e string or object
+    console.log(this.props.dataURL, "this.props.dataURL")
     if (typeof this.props.dataURL === "string"){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
-          // console.log(card.data, schema.data, opt_config.data, opt_config_schema.data, "=============")
+          console.log(card.data, schema.data, opt_config.data, opt_config_schema.data, "=============")
           this.setState({
             dataJSON: {
               card_data: card.data,
@@ -110,20 +111,25 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderLaptop() {
-    // console.log(this.state.dataJSON.card_data,this.state.dataJSON.configs, "renderLaptop")
-    const data = this.state.dataJSON.card_data;
-    let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
-    // console.log("data-----", this.state.step, styles)
-    
-    // console.log(styles,';;;;;;;')
-    return (
-      <div className = "protograph_card_div" style = {styles}>
-        <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1>
-        <div className="protograph_explainer_text">
-          <p>{data.data.explainer_text} </p>
+    console.log(this.props.schemaJSON, "this.props.schemaJSON")
+    if (this.state.schemaJSON === undefined ){
+      return(<div>Loading</div>)
+    } else {
+      console.log(this.state.dataJSON.card_data,this.state.dataJSON.configs, "renderLaptop")
+      const data = this.state.dataJSON.card_data;
+      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
+      // console.log("data-----", this.state.step, styles)
+      
+      // console.log(styles,';;;;;;;')
+      return (
+        <div className = "protograph_card_div" style = {styles}>
+          <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1>
+          <div className="protograph_explainer_text">
+            <p>{data.data.explainer_text} </p>
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
   }
 
   renderSchemaJSON() {
