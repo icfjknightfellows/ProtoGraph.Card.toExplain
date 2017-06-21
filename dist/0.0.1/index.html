@@ -12,51 +12,51 @@
     <script src="lib/oasis.min.js"></script>
     <script src = "card.min.js"></script>
     <script type="text/javascript">
-    // let param = location.search.split('HtmlCast_Unique_Identifier=')[1]
-    // function get(url) {
-    //   return new Promise(function(resolve, reject) {
-    //     var req = new XMLHttpRequest();
-    //     req.open('GET', url);
-    //     req.onload = function() {
-    //       if (req.status == 200) {
-    //         resolve(req.response);
-    //       }
-    //       else {
-    //         reject(Error(req.statusText));
-    //       }
-    //     };
-    //     req.onerror = function() {
-    //       reject(Error("Network Error"));
-    //     };
-    //     req.send();
-    //   });
-    // }
-    // get('https://7d9c56ac.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
-    //   console.log("Success!", response);
-    //   let response_object = JSON.parse(response)
-    //   var x = new ProtoGraph.Card.toExplain()
-    //   console.log(x, "xxxx")
-    //   x.init({
-    //     selector: document.querySelector('#explainer-div'),
-    //     data_url: response_object.data_url,
-    //     schema_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/schema.json',
-    //     configuration_url: response_object.configuration_url, //will come from local folder
-    //     configuration_schema_url: 'configuration_schema.json' //will come from local folder
-    //   })
-    //   x.renderLaptop();
-    // }, function(error) {
-    //   console.error("Failed!", error);
-    // })
-    // console.log("xxxxx inside index.html", window)
-    var x = new ProtoGraph.Card.toExplain()
-    x.init({
-      selector: document.querySelector('#explainer-div'),
-      data_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/sample.json',
-      schema_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/schema.json',
-      configuration_url: '/dist/0.0.1/configuration_sample.json', //will come from local folder
-      configuration_schema_url: '/dist/0.0.1/configuration_schema.json' //will come from local folder
+    let param = location.search.split('HtmlCast_Unique_Identifier=')[1]
+    function get(url) {
+      return new Promise(function(resolve, reject) {
+        var req = new XMLHttpRequest();
+        req.open('GET', url);
+        req.onload = function() {
+          if (req.status == 200) {
+            resolve(req.response);
+          }
+          else {
+            reject(Error(req.statusText));
+          }
+        };
+        req.onerror = function() {
+          reject(Error("Network Error"));
+        };
+        req.send();
+      });
+    }
+    get('https://7d9c56ac.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
+      console.log("Success!", response);
+      let response_object = JSON.parse(response)
+      var x = new ProtoGraph.Card.toExplain()
+      console.log(x, "xxxx")
+      x.init({
+        selector: document.querySelector('#explainer-div'),
+        data_url: response_object.data_url,
+        schema_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/schema.json',
+        configuration_url: response_object.configuration_url, //will come from local folder
+        configuration_schema_url: 'configuration_schema.json' //will come from local folder
+      })
+      x.renderLaptop();
+    }, function(error) {
+      console.error("Failed!", error);
     })
-     x.renderLaptop();
+    // console.log("xxxxx inside index.html", window)
+    // var x = new ProtoGraph.Card.toExplain()
+    // x.init({
+    //   selector: document.querySelector('#explainer-div'),
+    //   data_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/sample.json',
+    //   schema_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/schema.json',
+    //   configuration_url: '/dist/0.0.1/configuration_sample.json', //will come from local folder
+    //   configuration_schema_url: '/dist/0.0.1/configuration_schema.json' //will come from local folder
+    // })
+    //  x.renderLaptop();
     // x.renderEdit();
     </script>
   </body>

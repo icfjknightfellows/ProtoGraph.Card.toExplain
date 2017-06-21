@@ -12,6 +12,7 @@ export default class ExplainerCard extends React.Component {
         card_data: {},
         configs: {}
       },
+      oasisObj: {},
       schemaJSON: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined               
@@ -31,6 +32,8 @@ export default class ExplainerCard extends React.Component {
   }
 
   componentDidMount() {
+    console.log("componentDidMount", this.props.dataURL)
+    console.log(this.props)
     // get sample json data based on type i.e string or object
     if (typeof this.props.dataURL === "string"){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
@@ -42,7 +45,8 @@ export default class ExplainerCard extends React.Component {
             },
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
-            optionalConfigSchemaJSON: opt_config_schema.data
+            optionalConfigSchemaJSON: opt_config_schema.data,
+            oasisObj: this.props.oasisObj
           });
         }));
     } 
@@ -101,16 +105,19 @@ export default class ExplainerCard extends React.Component {
   }
 
   renderLaptop() {
+    // console.log(this.state.schemaJSON, this.state, this.props, "inside renderLaptop")
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
       let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
       return (
-        <div className = "protograph_card_div" style = {styles}>
-          <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1>
-          <div className="protograph_explainer_text">
-            <p>{data.data.explainer_text} </p>
+        <div>
+          <div id="protograph_div" className = "protograph_card_div" style = {styles}>
+            <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1>
+            <div className="protograph_explainer_text">
+              <p>{data.data.explainer_text} </p>
+            </div>
           </div>
         </div>
       )
@@ -193,6 +200,7 @@ export default class ExplainerCard extends React.Component {
   }
 
   render() {
+    let functionToReturn;
     switch(this.props.mode) {
       case 'laptop' :
         return this.renderLaptop();

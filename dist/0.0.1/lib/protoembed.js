@@ -28,21 +28,12 @@ ProtoEmbed.initFrame = function (id, url, mode) {
       receive: ResizeService
     }
   });
+  sandbox.el.setAttribute("sandbox", "allow-scripts allow-same-origin")
   console.log(sandbox, "sandbox")
   document.getElementById(id).append(sandbox.el);
   document.querySelector('#' + id + ' iframe').style.width = '100%'
   document.querySelector('#' + id + ' iframe').style.height = 'auto'
   document.querySelector('#' + id + ' iframe').style.borderWidth = '0px'
-  // function buttonClicked() {
-  //   let mode = this.id;
-  //   oasis.services[0].send("resize_content", mode)
-  // }
-
-  var button_class = document.getElementsByClassName("pyk-button")
-  for (let i=0; i<button_class.length; i++){
-    button_class[i].setAttribute('style', 'background-color: white; border: 1px solid grey;color: black;padding: 5px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;cursor:pointer')
-    button_class[i].addEventListener('click', buttonClicked)
-  }
 
   function resizeIframe(obj, data) {
     // console.log(obj, data, "iframe object")
