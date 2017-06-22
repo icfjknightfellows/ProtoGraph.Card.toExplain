@@ -42,7 +42,6 @@ ProtoGraph.Card.toExplain.prototype.renderLaptop = function (data) {
             optionalConfigURL={that.options.configuration_url}
             optionalConfigSchemaURL={that.options.configuration_schema_url}
             mode={that.renderMode}
-            oasisObj = {this}
             ref={(e) => {
               that.containerInstance = that.containerInstance || e;
             }}/>,

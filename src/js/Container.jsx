@@ -12,7 +12,6 @@ export default class ExplainerCard extends React.Component {
         card_data: {},
         configs: {}
       },
-      oasisObj: {},
       schemaJSON: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined               
@@ -44,8 +43,7 @@ export default class ExplainerCard extends React.Component {
             },
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
-            optionalConfigSchemaJSON: opt_config_schema.data,
-            oasisObj: this.props.oasisObj
+            optionalConfigSchemaJSON: opt_config_schema.data
           });
         }));
     } 
