@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Form from 'react-jsonschema-form';
+import Form from './react-jsonschema-form';
+import './style.css';
 
 export default class ExplainerCard extends React.Component {
   constructor(props) {
@@ -184,17 +185,17 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       return (
-        <div className="col-sm-12">
-          <div className = "col-sm-6" id="protograph-explainer-form-div">
+        <div>
+          <div className = "protograph_col_6" id="protograph-explainer-form-div">
             <Form schema = {this.renderSchemaJSON()}
             onSubmit = {((e) => this.onSubmitHandler(e))}
             onChange = {((e) => this.onChangeHandler(e))} 
             formData = {this.renderFormData()}>
             <a id="protograph-prev-link"onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
-            <button type="submit" className="btn btn-info">{this.showButtonText()}</button>
+            <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>
             </Form>
           </div>
-          <div className = "col-sm-6" id="protograph-explainer-card-div">
+          <div className = "protograph_col_6" id="protograph-explainer-card-div">
             {this.renderLaptop()}
           </div>
         </div>

@@ -1,6 +1,9 @@
 /*#proto_explainer_div{
   width: 100%;
 }*/
+.protograph_col_6 {
+  width: 50%;
+}
 
 #protograph-explainer-form-div {
   display: inline-block;
@@ -18,7 +21,7 @@
 }
 
 fieldset {
-  border-width: 1px;
+  width:98%;
 }
 
 .protograph_explainer_header{

@@ -4,10 +4,8 @@
   "description": "",
   "dependencies": {
     "axios": "^0.16.1",
-    "jsx-to-html": "^1.1.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-jsonschema-form": "^0.49.0"
+    "react-dom": "^15.5.4"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
