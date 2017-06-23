@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Form from './react-jsonschema-form';
-import './style.css';
 
 export default class ExplainerCard extends React.Component {
   constructor(props) {
