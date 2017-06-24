@@ -7,7 +7,8 @@
       "default": "Blue",
       "id": "/properties/background_color",
       "title": "Background Color",
-      "type": "color"
+      "type": "string",
+      "format": "color"
     }
   },
   "type": "object"

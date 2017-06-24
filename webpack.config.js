@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   entry: './main.js',
   output: {
@@ -5,12 +7,12 @@ module.exports = {
     filename: './dist/0.0.1/card.min.js',
   },
   plugins: [
-    // new webpack.DefinePlugixn({
-    //   'process.env': {
-    //     NODE_ENV: JSON.stringify('production')
-    //   }
-    // }),
-    // new webpack.optimize.UglifyJsPlugin()
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   node: {
     net: 'empty',
