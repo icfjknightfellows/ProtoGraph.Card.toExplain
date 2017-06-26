@@ -14,7 +14,7 @@ export default class ExplainerCard extends React.Component {
       },
       schemaJSON: undefined,
       optionalConfigJSON: {},
-      optionalConfigSchemaJSON: undefined               
+      optionalConfigSchemaJSON: undefined
     }
   }
 
@@ -39,14 +39,14 @@ export default class ExplainerCard extends React.Component {
           this.setState({
             dataJSON: {
               card_data: card.data,
-              configs: opt_config.data             
+              configs: opt_config.data
             },
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
           });
         }));
-    } 
+    }
   }
 
   getScreenSize() {
@@ -70,7 +70,7 @@ export default class ExplainerCard extends React.Component {
           let dataJSON = prevStep.dataJSON;
           dataJSON.card_data = formData
           return {
-            dataJSON: dataJSON  
+            dataJSON: dataJSON
           }
         })
         break;
@@ -130,7 +130,7 @@ export default class ExplainerCard extends React.Component {
   renderSchemaJSON() {
     switch(this.state.step){
       case 1:
-        return this.state.schemaJSON; 
+        return this.state.schemaJSON;
         break;
       case 2:
         return this.state.optionalConfigSchemaJSON;
@@ -161,7 +161,7 @@ export default class ExplainerCard extends React.Component {
   }
 
   showButtonText() {
-    switch(this.state.step) {    
+    switch(this.state.step) {
       case 1:
         return 'Proceed to next step';
         break;
@@ -175,7 +175,7 @@ export default class ExplainerCard extends React.Component {
     let prev_step = --this.state.step;
     this.setState({
       step: prev_step
-    })  
+    })
   }
 
   renderEdit() {
@@ -188,10 +188,11 @@ export default class ExplainerCard extends React.Component {
           <div className = "protograph_col_6" id="protograph-explainer-form-div">
             <Form schema = {this.renderSchemaJSON()}
             onSubmit = {((e) => this.onSubmitHandler(e))}
-            onChange = {((e) => this.onChangeHandler(e))} 
+            onChange = {((e) => this.onChangeHandler(e))}
             formData = {this.renderFormData()}>
             <a id="protograph-prev-link"onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
-            <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>
+            {this.state.step !== 2 &&
+            <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>}
             </Form>
           </div>
           <div className = "protograph_col_6" id="protograph-explainer-card-div">
