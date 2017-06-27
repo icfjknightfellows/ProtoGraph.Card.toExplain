@@ -1,10 +1,10 @@
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './main.js',
+  entry: ['./main.js','./main_edit.js'],
   output: {
     path: './',
-    filename: './dist/0.0.1/card.min.js'
+    filename: './dist/0.0.1/edit-card.min.js'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -14,6 +14,12 @@ module.exports = {
     }),
     new webpack.optimize.UglifyJsPlugin()
   ],
+  externals: {
+    'react': 'React',
+    'react-dom': 'ReactDOM',
+    './react-jsonschema-form': 'JSONSchemaForm',
+    'axios': 'axios'
+  },
   node: {
     net: 'empty',
     tls: 'empty',
