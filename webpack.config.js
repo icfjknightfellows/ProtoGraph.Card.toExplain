@@ -1,27 +1,27 @@
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './main.js',
+  entry: {
+    'dist/0.0.1/new.card.min': './main.js',
+    'dist/0.0.1/edit.card.min': './main_edit.js'
+  },
   output: {
     path: './',
-    filename: './dist/0.0.1/card.min.js',
+    filename: '[name].js'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin()
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: JSON.stringify('production')
+    //   }
+    // }),
+    // new webpack.optimize.UglifyJsPlugin()
   ],
   node: {
     net: 'empty',
     tls: 'empty',
     fs: 'empty'
   },
-  // externals: {
-  //     'cards': 'cards'
-  // },
   module: {
     loaders: [
       {

@@ -10,7 +10,8 @@
   </head>
   <body>
     <div id="explainer-div"></div></br>
-    <script src = "/dist/0.0.1/card.min.js"></script>
+    <script src = "/dist/0.0.1/new.card.min.js"></script>
+    <script src = "/dist/0.0.1/edit.card.min.js"></script>
     <script type="text/javascript">
     // let param = location.search.split('HtmlCast_Unique_Identifier=')[1]
     // function get(url) {
@@ -46,7 +47,7 @@
     //   x.renderLaptop();
     // }, function(error) {
     //   console.error("Failed!", error);
-    // })  
+    // })
     var x = new ProtoGraph.Card.toExplain()
     x.init({
       selector: document.querySelector('#explainer-div'),
