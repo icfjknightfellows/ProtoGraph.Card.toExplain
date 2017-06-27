@@ -36,17 +36,6 @@ export default class ExplainerCard extends React.Component {
     this.state = stateVar;
   }
 
-  exportData() {
-    let getDataObj = {
-      step: this.state.step,
-      dataJSON: this.state.dataJSON.card_data,
-      schemaJSON: this.state.schemaJSON,
-      optionalConfigJSON: this.state.dataJSON.configs,
-      optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
-    }
-    return getDataObj;
-  }
-
   componentDidMount() {
     console.log("componentDidMount", this.props.dataURL)
     console.log(this.props)
@@ -101,7 +90,6 @@ export default class ExplainerCard extends React.Component {
   }
 
   render() {
-    let functionToReturn;
     switch(this.props.mode) {
       case 'laptop' :
         return this.renderLaptop();

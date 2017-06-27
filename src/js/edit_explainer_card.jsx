@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import Form from './react-jsonschema-form';
 import ExplainerCard from './Container.jsx';
+import JSONSchemaForm from './react-jsonschema-form';
 
 export default class EditExplainerCard extends React.Component {
   constructor(props) {
@@ -27,6 +27,7 @@ export default class EditExplainerCard extends React.Component {
       optionalConfigJSON: this.state.dataJSON.configs,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
+    getDataObj["name"] = getDataObj.dataJSON.data.explainer_header.substr(0,225); // Reduces the name to ensure the slug does not get too long
     return getDataObj;
   }
 
@@ -163,31 +164,6 @@ export default class EditExplainerCard extends React.Component {
     })
   }
 
-  renderEdit() {
-    // console.log(this.state.dataJSON, this.props, this.state.schemaJSON, "schema data")
-    if (this.state.schemaJSON === undefined) {
-      return(<div>Loading</div>)
-    } else {
-      return (
-        <div>
-          <div className = "protograph_col_6" id="protograph-explainer-form-div">
-            <Form schema = {this.renderSchemaJSON()}
-            onSubmit = {((e) => this.onSubmitHandler(e))}
-            onChange = {((e) => this.onChangeHandler(e))}
-            formData = {this.renderFormData()}>
-            <a id="protograph-prev-link"onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
-            {this.state.step !== 2 &&
-            <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>}
-            </Form>
-          </div>
-          <div className = "protograph_col_6" id="protograph-explainer-card-div">
-            {this.renderLaptop()}
-          </div>
-        </div>
-      )
-    }
-  }
-
   render() {
     if (this.state.schemaJSON === undefined) {
       return(<div>Loading</div>)
@@ -195,7 +171,7 @@ export default class EditExplainerCard extends React.Component {
       return (
         <div>
           <div className="protograph_col_6" id="protograph-explainer-form-div">
-            <Form schema={this.renderSchemaJSON()}
+            <JSONSchemaForm schema={this.renderSchemaJSON()}
               onSubmit={((e) => this.onSubmitHandler(e))}
               onChange={((e) => this.onChangeHandler(e))}
               formData={this.renderFormData()}>
@@ -204,7 +180,7 @@ export default class EditExplainerCard extends React.Component {
                 this.state.step !== 2 &&
                   <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>
               }
-            </Form>
+            </JSONSchemaForm>
           </div>
           <div className = "protograph_col_6" id="protograph-explainer-card-div">
               <ExplainerCard

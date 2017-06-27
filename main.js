@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import ExplainerCard from './src/js/Container.jsx';
 
@@ -10,19 +11,6 @@ ProtoGraph.Card.toExplain = function () {
 
 ProtoGraph.Card.toExplain.prototype.init = function (options) {
   this.options = options;
-}
-
-ProtoGraph.Card.toExplain.prototype.setData = function (data) {
-  this.data = data;
-}
-
-ProtoGraph.Card.toExplain.prototype.getData = function (data) {
-  return this.containerInstance.exportData();
-}
-
-ProtoGraph.Card.toExplain.prototype.renderSEO = function (data) {
-  this.renderMode = 'SEO';
-  return this.containerInstance.renderSEO();
 }
 
 ProtoGraph.Card.toExplain.prototype.renderLaptop = function (data) {
