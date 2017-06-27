@@ -32,7 +32,7 @@
         req.send();
       });
     }
-    get('https://00ab8fcd.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
+    get('https://a9f44648.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
       console.log("Success!", response);
       let response_object = JSON.parse(response)
       var x = new ProtoGraph.Card.toExplain()
