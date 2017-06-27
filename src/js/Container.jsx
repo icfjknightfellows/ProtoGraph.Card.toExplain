@@ -44,6 +44,7 @@ export default class ExplainerCard extends React.Component {
       optionalConfigJSON: this.state.dataJSON.configs,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
+    getDataObj["name"] = getDataObj.dataJSON.data.explainer_header.substr(0,225); // Reduces the name to ensure the slug does not get too long
     return getDataObj;
   }
 
@@ -101,7 +102,6 @@ export default class ExplainerCard extends React.Component {
   }
 
   render() {
-    let functionToReturn;
     switch(this.props.mode) {
       case 'laptop' :
         return this.renderLaptop();
