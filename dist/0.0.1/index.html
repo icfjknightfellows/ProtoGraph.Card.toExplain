@@ -33,45 +33,46 @@
         req.send();
       });
     }
-    get('https://3fc38481.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
-      console.log("Success!", response);
-      let response_object = JSON.parse(response)
-      console.log(x, "xxxx")
-      x.init({
-        selector: document.querySelector('#explainer-div'),
-        data_url: response_object.data_url,
-        schema_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/schema.json',
-        configuration_url: response_object.configuration_url, //will come from local folder
-        configuration_schema_url: 'configuration_schema.json' //will come from local folder
-      })
-      x.renderLaptop();
-    }, function(error) {
-      console.error("Failed!", error);
-    })
 
     var ReceiverConsumer = Oasis.Consumer.extend({
+      requests: {
+        receive: function(mode) {
+          get('https://3fc38481.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
+            let response_object = JSON.parse(response)
+            x.init({
+              selector: document.querySelector('#explainer-div'),
+              data_url: response_object.data_url,
+              schema_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/schema.json',
+              configuration_url: response_object.configuration_url,
+              configuration_schema_url: 'configuration_schema.json'
+            })
+            renderWithMode(mode);
+          }, function(error) {
+            console.error("Failed!", error);
+          })
+        }
+      },
       events: {
         get_size: function(){
-          this.send("resize_frame", {"width": "50%", "height": "400px"});
+          var that = this;
+          var intervalId = setInterval(function(){
+            clientRect = x.getData();
+            if(clientRect.height){
+              var height = clientRect.height,
+                width = clientRect.width;
+              that.send("resize_frame", {height: height, width: width});
+              clearInterval(intervalId);
+            }
+          }, 10)
+
         },
         change_mode: function(mode){
-          let obj;
-          switch(mode){
-            case "laptop":
-              x.renderLaptop();
-              obj = {"width": "50%", "height": "400px"}
-              break;
-            case "mobile":
-              x.renderMobile();
-              obj = {"width": "75%", "height": "300px"}
-              break;
-            case "screenshot":
-              x.renderScreenshot();
-              obj = {"width": "100%", "height": "200px"}
-              break;
-          }
-
-          this.send("resize_frame", obj);
+          renderWithMode(mode);
+          var that = this;
+          setTimeout(function(){
+            height = x.getData().height;
+            that.send("resize_frame", {height: height});
+          })
         }
       }
     });
@@ -79,18 +80,19 @@
       consumers: {
         receive: ReceiverConsumer
       }
-    })
-    // console.log("xxxxx inside index.html", window)
-    // var x = new ProtoGraph.Card.toExplain()
-    // x.init({
-    //   selector: document.querySelector('#explainer-div'),
-    //   data_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/sample.json',
-    //   schema_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/schema.json',
-    //   configuration_url: '/dist/0.0.1/configuration_sample.json', //will come from local folder
-    //   configuration_schema_url: '/dist/0.0.1/configuration_schema.json' //will come from local folder
-    // })
-    //  x.renderLaptop();
-    // x.renderEdit();
+    });
+
+    function renderWithMode(mode) {
+      switch(mode){
+        case "laptop":
+          x.renderLaptop();
+          break;
+        case "mobile":
+          x.renderMobile();
+          break;
+      }
+    }
+
     </script>
   </body>
 </html>

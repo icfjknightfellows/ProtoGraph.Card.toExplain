@@ -7,7 +7,7 @@ export default class ExplainerCard extends React.Component {
     super(props)
 
     let stateVar = {
-      step: 1,
+      fetchingData: true,
       dataJSON: {
         card_data: {},
         configs: {}
@@ -36,14 +36,19 @@ export default class ExplainerCard extends React.Component {
     this.state = stateVar;
   }
 
+  exportData() {
+    return document.getElementById('protograph_div').getBoundingClientRect();
+  }
+
   componentDidMount() {
     console.log("componentDidMount", this.props.dataURL)
     console.log(this.props)
     // get sample json data based on type i.e string or object
-    if (!this.state.schemaJSON){
+    if (this.state.fetchingData){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
           this.setState({
+            fetchingData: false,
             dataJSON: {
               card_data: card.data,
               configs: opt_config.data
@@ -52,6 +57,7 @@ export default class ExplainerCard extends React.Component {
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
           });
+
         }));
     }
   }
@@ -76,6 +82,27 @@ export default class ExplainerCard extends React.Component {
     } else {
       const data = this.state.dataJSON.card_data;
       let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
+      styles["width"] = "100%";
+      return (
+        <div>
+          <div id="protograph_div" className = "protograph_card_div" style = {styles}>
+            <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1>
+            <div className="protograph_explainer_text">
+              <p>{data.data.explainer_text} </p>
+            </div>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  renderMobile() {
+    if (this.state.schemaJSON === undefined ){
+      return(<div>Loading</div>)
+    } else {
+      const data = this.state.dataJSON.card_data;
+      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
+      styles['width'] = '300px';
       return (
         <div>
           <div id="protograph_div" className = "protograph_card_div" style = {styles}>
@@ -114,7 +141,7 @@ export default class ExplainerCard extends React.Component {
         return this.renderLaptop();
         break;
       case 'mobile' :
-        return this.renderLaptop();
+        return this.renderMobile();
         break;
       case 'tablet' :
         return this.renderLaptop();
