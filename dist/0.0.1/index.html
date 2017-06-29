@@ -32,7 +32,7 @@
         req.send();
       });
     }
-    get('https://a9f44648.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
+    get('https://3fc38481.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
       console.log("Success!", response);
       let response_object = JSON.parse(response)
       var x = new ProtoGraph.Card.toExplain()
@@ -44,7 +44,7 @@
         configuration_url: response_object.configuration_url, //will come from local folder
         configuration_schema_url: 'configuration_schema.json' //will come from local folder
       })
-      x.renderLaptop();
+      x.renderScreenshot();
     }, function(error) {
       console.error("Failed!", error);
     })
