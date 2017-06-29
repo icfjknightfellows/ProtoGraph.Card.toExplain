@@ -10,12 +10,12 @@ body{
   width: 50%;
 }
 
-#ProtoScreenshot {
-  height: 450px;
+#ProtoScreenshot  {
   width: 450px;
   padding: 10px 15px;
   margin-left: 20px;
-  margin-left: 20px;
+  max-height: 450px;
+  overflow: hidden;
 }
 
 #protograph-explainer-form-div {
