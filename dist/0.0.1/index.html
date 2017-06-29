@@ -13,6 +13,7 @@
     <!-- // <script src="lib/oasis.min.js"></script> -->
     <script src = "card.min.js"></script>
     <script type="text/javascript">
+    var x = new ProtoGraph.Card.toExplain();
     let param = location.search.split('HtmlCast_Unique_Identifier=')[1]
     function get(url) {
       return new Promise(function(resolve, reject) {
@@ -35,7 +36,6 @@
     get('https://3fc38481.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
       console.log("Success!", response);
       let response_object = JSON.parse(response)
-      var x = new ProtoGraph.Card.toExplain()
       console.log(x, "xxxx")
       x.init({
         selector: document.querySelector('#explainer-div'),
@@ -44,9 +44,41 @@
         configuration_url: response_object.configuration_url, //will come from local folder
         configuration_schema_url: 'configuration_schema.json' //will come from local folder
       })
-      x.renderScreenshot();
+      x.renderLaptop();
     }, function(error) {
       console.error("Failed!", error);
+    })
+
+    var ReceiverConsumer = Oasis.Consumer.extend({
+      events: {
+        get_size: function(){
+          this.send("resize_frame", {"width": "50%", "height": "400px"});
+        },
+        change_mode: function(mode){
+          let obj;
+          switch(mode){
+            case "laptop":
+              x.renderLaptop();
+              obj = {"width": "50%", "height": "400px"}
+              break;
+            case "mobile":
+              x.renderMobile();
+              obj = {"width": "75%", "height": "300px"}
+              break;
+            case "screenshot":
+              x.renderScreenshot();
+              obj = {"width": "100%", "height": "200px"}
+              break;
+          }
+
+          this.send("resize_frame", obj);
+        }
+      }
+    });
+    oasis.connect({
+      consumers: {
+        receive: ReceiverConsumer
+      }
     })
     // console.log("xxxxx inside index.html", window)
     // var x = new ProtoGraph.Card.toExplain()

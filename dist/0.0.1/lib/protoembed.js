@@ -1,5 +1,6 @@
 //environment
 window.ProtoEmbed = window.ProtoEmbed || {};
+var sandbox;
 // var ProtoEmbed = {};
 // ProtoEmbed.init = {};
 ProtoEmbed.initFrame = function (id, url, mode) {
@@ -9,10 +10,14 @@ ProtoEmbed.initFrame = function (id, url, mode) {
   }
   var ResizeService = Oasis.Service.extend({
     initialize: function() {
-      this.request('receive', mode).then(function (data) {
-        console.log(data, "initialize")
-        resizeIframe(document.querySelector('#' + id + ' iframe'), data)
-      });
+      var that = this;
+      setTimeout(function(){
+        that.send("get_size");
+      }, 1000);
+      // this.request('receive', mode).then(function (data) {
+      //   console.log(data, "initialize")
+      //   resizeIframe(document.querySelector('#' + id + ' iframe'), data)
+      // });
     },
     events: {
       resize_frame: function(data){
@@ -20,7 +25,7 @@ ProtoEmbed.initFrame = function (id, url, mode) {
       }
     }
   });
-  var sandbox = oasis.createSandbox({
+  sandbox = oasis.createSandbox({
     url: url,
     type: 'html',
     capabilities: [ 'receive' ],
@@ -29,7 +34,6 @@ ProtoEmbed.initFrame = function (id, url, mode) {
     }
   });
   sandbox.el.setAttribute("sandbox", "allow-scripts allow-same-origin")
-  console.log(sandbox, "sandbox")
   document.getElementById(id).append(sandbox.el);
   document.querySelector('#' + id + ' iframe').style.width = '100%'
   document.querySelector('#' + id + ' iframe').style.height = 'auto'
@@ -39,8 +43,9 @@ ProtoEmbed.initFrame = function (id, url, mode) {
     // console.log(obj, data, "iframe object")
     if (data !== undefined) {
       // obj[0].style.height = obj.context.body.scrollHeight + 'px';
-      obj.style.height = data.height + 'px';
-      obj.style.width = '100%';
+      obj.style.height = data.height;
+      obj.style.width = data.width;
+      obj.style.background = 'blue'
     }
   }
 }
