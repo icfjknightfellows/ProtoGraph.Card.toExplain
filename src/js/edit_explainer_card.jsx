@@ -80,6 +80,9 @@ export default class EditExplainerCard extends React.Component {
         this.setState({
           step: 2
         });
+        if(this.props.editData && (typeof this.props.editData.onLastStep === "function")) {
+          this.props.editData.onLastStep();
+        }
         break;
       case 2:
         alert("The card is published");
@@ -161,7 +164,10 @@ export default class EditExplainerCard extends React.Component {
     let prev_step = --this.state.step;
     this.setState({
       step: prev_step
-    })
+    });
+    if(this.props.editData && typeof this.props.editData.notOnLastStep === "function") {
+      this.props.editData.notOnLastStep();
+    }
   }
 
   render() {
