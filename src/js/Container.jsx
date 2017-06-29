@@ -96,14 +96,14 @@ export default class ExplainerCard extends React.Component {
       const data = this.state.dataJSON.card_data;
       let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
       return (
-        <div id="ProtoScreenshot">
-          <div id="protograph_div" className = "protograph_card_div_screenshot" style = {styles}>
+        
+          <div id="ProtoScreenshot" className = "protograph_card_div_screenshot" style = {styles}>
             {/* <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1> */}
             <div className="protograph_explainer_text_screenshot">
               <p>{data.data.explainer_text} </p>
             </div>
           </div>
-        </div>
+
       )
     }
   }
