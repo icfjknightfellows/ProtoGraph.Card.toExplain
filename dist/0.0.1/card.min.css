@@ -10,16 +10,26 @@ body{
   width: 50%;
 }
 
+#ProtoScreenshot {
+  height: 450px;
+  width: 450px;
+  padding-top: 20px;
+  margin-left: 20px;
+  margin-left: 20px;
+}
+
 #protograph-explainer-form-div {
   display: inline-block;
   top: 20px;
 }
+
 
 #protograph-explainer-card-div {
   display: inline-block;
   float: right;
   top: 20px;
 }
+
 
 #protograph-prev-link {
   cursor: pointer;
@@ -69,6 +79,9 @@ fieldset {
   box-sizing: border-box;
 }
 
+
+
+
 /*#proto_read_more_link {
   color: white;
   cursor: pointer;
@@ -86,4 +99,3 @@ fieldset {
     padding-left: 0px;
   }
 }
-
