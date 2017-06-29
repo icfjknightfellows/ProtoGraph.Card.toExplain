@@ -5,12 +5,17 @@ import ExplainerCard from './src/js/Container.jsx';
 window.ProtoGraph = window.ProtoGraph || {};
 window.ProtoGraph.Card = window.ProtoGraph.Card || {};
 
+
 ProtoGraph.Card.toExplain = function () {
   this.cardType = 'ExplainerCard';
 }
 
 ProtoGraph.Card.toExplain.prototype.init = function (options) {
   this.options = options;
+}
+
+ProtoGraph.Card.toExplain.prototype.getData = function (data) {
+  return this.containerInstance.exportData();
 }
 
 ProtoGraph.Card.toExplain.prototype.renderLaptop = function (data) {
