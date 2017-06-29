@@ -10,10 +10,12 @@ body{
   width: 50%;
 }
 
-#screenshot {
+#ProtoScreenshot {
   height: 450px;
   width: 450px;
   padding-top: 20px;
+  margin-left: 20px;
+  margin-left: 20px;
 }
 
 #protograph-explainer-form-div {
