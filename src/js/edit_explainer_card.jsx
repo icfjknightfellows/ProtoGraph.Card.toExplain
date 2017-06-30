@@ -176,7 +176,7 @@ export default class EditExplainerCard extends React.Component {
     } else {
       return (
         <div>
-          <div className="protograph_col_6" id="protograph-explainer-form-div">
+          <div className="protograph_col_6 protograph-edit-form" id="protograph-explainer-form-div">
             <JSONSchemaForm schema={this.renderSchemaJSON()}
               onSubmit={((e) => this.onSubmitHandler(e))}
               onChange={((e) => this.onChangeHandler(e))}
