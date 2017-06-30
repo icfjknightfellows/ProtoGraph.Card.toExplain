@@ -78,8 +78,10 @@ fieldset {
   box-sizing: border-box;
 }
 
-
-
+.protograph-edit-form {
+  border-right: 1px solid #efefef ;
+  box-sizing: border-box;
+}
 
 /*#proto_read_more_link {
   color: white;
