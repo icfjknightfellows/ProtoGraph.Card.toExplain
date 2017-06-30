@@ -18,6 +18,7 @@ export default class ExplainerCard extends React.Component {
     };
 
     if (this.props.dataJSON) {
+      stateVar.fetchingData = false;
       stateVar.dataJSON = this.props.dataJSON;
     }
 
