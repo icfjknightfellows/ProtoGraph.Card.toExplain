@@ -42,7 +42,7 @@
             x.init({
               selector: document.querySelector('#explainer-div'),
               data_url: response_object.data_url,
-              schema_url: 'https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/schema.json',
+              schema_url: response_object.schema_url,
               configuration_url: response_object.configuration_url,
               configuration_schema_url: 'configuration_schema.json'
             })
