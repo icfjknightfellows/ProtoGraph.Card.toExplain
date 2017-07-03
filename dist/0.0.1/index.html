@@ -6,6 +6,39 @@
     <title>Explainer Card</title>
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="text/css" href="card.min.css">
+    <script type="text/javascript">
+      var endpoint, siteId;
+      // Setting variables from environment
+      let bucket_name = window.location.pathname.split('/')['1'];
+      switch(bucket_name){
+        case "cdn.protograph":
+          endpoint = "https://protograph.pykih.com";
+          siteId = '1';
+          break;
+        case "staging.cdn.protograph":
+          endpoint = "http://protograph-staging.pykih.com";
+          siteId = '2';
+          break;
+        case "dev.cdn.protograph":
+        default:
+          endpoint = "https://3fc38481.ngrok.io";
+          break;
+      }
+      if(siteId){
+        var _paq = _paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="//protograph.innocraft.cloud/";
+          _paq.push(['setTrackerUrl', u+'piwik.php']);
+          _paq.push(['setSiteId', siteId]);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+      }
+    </script>
+
   </head>
   <body>
     <div id="explainer-div"></div></br>
@@ -14,7 +47,7 @@
     <script src = "card.min.js"></script>
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toExplain();
-    let param = location.search.split('HtmlCast_Unique_Identifier=')[1]
+    let param = location.search.split('HtmlCast_Unique_Identifier=')[1];
     function get(url) {
       return new Promise(function(resolve, reject) {
         var req = new XMLHttpRequest();
@@ -37,8 +70,8 @@
     var ReceiverConsumer = Oasis.Consumer.extend({
       requests: {
         receive: function(mode) {
-          get('https://3fc38481.ngrok.io/api/v1/view_casts/'+param).then(function (response) {
-            let response_object = JSON.parse(response)
+          get(endpoint+'/api/v1/view_casts/'+param).then(function (response) {
+            let response_object = JSON.parse(response);
             x.init({
               selector: document.querySelector('#explainer-div'),
               data_url: response_object.data_url,
