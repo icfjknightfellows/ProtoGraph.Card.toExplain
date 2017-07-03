@@ -80,12 +80,15 @@ export default class EditExplainerCard extends React.Component {
         this.setState({
           step: 2
         });
-        if(this.props.editData && (typeof this.props.editData.onLastStep === "function")) {
-          this.props.editData.onLastStep();
-        }
+        // if(this.props.editData && (typeof this.props.editData.onLastStep === "function")) {
+        //   this.props.editData.onLastStep();
+        // }
         break;
       case 2:
-        alert("The card is published");
+        if (typeof this.props.onPublishCallback === "function") {
+          this.props.onPublishCallback();
+        }
+        // alert("The card is published");
         break;
     }
   }
@@ -181,11 +184,12 @@ export default class EditExplainerCard extends React.Component {
               onSubmit={((e) => this.onSubmitHandler(e))}
               onChange={((e) => this.onChangeHandler(e))}
               formData={this.renderFormData()}>
-              <a id="protograph-prev-link"onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
-              {
+              <a id="protograph-prev-link" onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
+              <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>
+              {/*
                 this.state.step !== 2 &&
                   <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>
-              }
+              */}
             </JSONSchemaForm>
           </div>
           <div className = "protograph_col_6" id="protograph-explainer-card-div">
