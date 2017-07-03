@@ -1,0 +1,45 @@
+.proto-container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto; }
+
+.proto-navbar {
+  padding: 5px 0px;
+  border-bottom: 1px solid #efefef;
+  background: white; }
+  .proto-navbar .round-image {
+    height: 45px;
+    width: 45px;
+    overflow: hidden;
+    border-radius: 50px; }
+
+.form-layout .proto-card-form {
+  padding-top: 15px; }
+.form-layout .proto-card-preview {
+  background: white;
+  height: 100vh;
+  padding-top: 15px; }
+
+.default-button {
+  border: 1px solid #c5c5c5;
+  display: inline-block;
+  padding: 2px;
+  border-radius: 4px; }
+  .default-button i.icon, .default-button i.icons {
+    color: #969696;
+    font-size: 1.5em; }
+
+.section-title-text{
+  font-size: 1.5em;
+  padding-bottom: 15px;
+  font-weight: bold;
+  display: inline-block;
+}
+.proto-pull-right {
+  float: right;
+}
+
+.proto-grey-body {
+  background: #fafafa; }
+
+/*# sourceMappingURL=master-style.css.map */

@@ -168,9 +168,6 @@ export default class EditExplainerCard extends React.Component {
     this.setState({
       step: prev_step
     });
-    if(this.props.editData && typeof this.props.editData.notOnLastStep === "function") {
-      this.props.editData.notOnLastStep();
-    }
   }
 
   render() {
@@ -178,28 +175,34 @@ export default class EditExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       return (
-        <div>
-          <div className="protograph_col_6 protograph-edit-form" id="protograph-explainer-form-div">
-            <JSONSchemaForm schema={this.renderSchemaJSON()}
-              onSubmit={((e) => this.onSubmitHandler(e))}
-              onChange={((e) => this.onChangeHandler(e))}
-              formData={this.renderFormData()}>
-              <a id="protograph-prev-link" onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
-              <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>
-              {/*
-                this.state.step !== 2 &&
+        <div className="proto-container">
+          <div className="ui grid form-layout">
+            <div className="row">
+              <div className="four wide column proto-card-form">
+                <div>
+                  <div className="section-title-text">Fill the form</div>
+                  <div className="ui label proto-pull-right">
+                    ToSocial
+                  </div>
+                </div>
+                <JSONSchemaForm schema={this.renderSchemaJSON()}
+                  onSubmit={((e) => this.onSubmitHandler(e))}
+                  onChange={((e) => this.onChangeHandler(e))}
+                  formData={this.renderFormData()}>
+                  <a id="protograph-prev-link" onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
                   <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>
-              */}
-            </JSONSchemaForm>
-          </div>
-          <div className = "protograph_col_6" id="protograph-explainer-card-div">
-              <ExplainerCard
-                mode='laptop'
-                dataJSON={this.state.dataJSON}
-                schemaJSON={this.state.schemaJSON}
-                optionalConfigJSON={this.state.optionalConfigJSON}
-                optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
-              />
+                </JSONSchemaForm>
+              </div>
+              <div className="twelve wide column proto-card-preview proto-share-card-div">
+                <ExplainerCard
+                  mode='laptop'
+                  dataJSON={this.state.dataJSON}
+                  schemaJSON={this.state.schemaJSON}
+                  optionalConfigJSON={this.state.optionalConfigJSON}
+                  optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
+                />
+              </div>
+            </div>
           </div>
         </div>
       )
