@@ -13,10 +13,12 @@ export default class EditExplainerCard extends React.Component {
         card_data: {},
         configs: {}
       },
+      mode: "laptop",
       schemaJSON: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
     }
+    this.toggleMode = this.toggleMode.bind(this);
   }
 
   exportData() {
@@ -170,6 +172,23 @@ export default class EditExplainerCard extends React.Component {
     });
   }
 
+  toggleMode(e) {
+    let element = e.target.closest('a'),
+      mode = element.getAttribute('data-mode');
+    this.setState((prevState, props) => {
+      let newMode;
+      if (mode !== prevState.mode) {
+        newMode = mode;
+      } else {
+        newMode = prevState.mode
+      }
+
+      return {
+        mode: newMode
+      }
+    })
+  }
+
   render() {
     if (this.state.schemaJSON === undefined) {
       return(<div>Loading</div>)
@@ -194,8 +213,24 @@ export default class EditExplainerCard extends React.Component {
                 </JSONSchemaForm>
               </div>
               <div className="twelve wide column proto-card-preview proto-share-card-div">
+                <div className="protograph-menu-container">
+                  <div className="ui compact menu">
+                    <a className={`item ${this.state.mode === 'laptop' ? 'active' : ''}`}
+                      data-mode='laptop'
+                      onClick={this.toggleMode}
+                    >
+                      <i className="desktop icon"></i>
+                    </a>
+                    <a className={`item ${this.state.mode === 'mobile' ? 'active' : ''}`}
+                      data-mode='mobile'
+                      onClick={this.toggleMode}
+                    >
+                      <i className="mobile icon"></i>
+                    </a>
+                  </div>
+                </div>
                 <ExplainerCard
-                  mode='laptop'
+                  mode={this.state.mode}
                   dataJSON={this.state.dataJSON}
                   schemaJSON={this.state.schemaJSON}
                   optionalConfigJSON={this.state.optionalConfigJSON}

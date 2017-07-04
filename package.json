@@ -28,8 +28,8 @@
   "scripts": {
     "build": "npm run build:std && npm run build:edit",
     "start": "webpack-dev-server",
-    "build:std": "NODE_ENV=production webpack --config webpack.config.js",
-    "build:edit": "NODE_ENV=production webpack --config webpack.config.edit.js"
+    "build:std": "NODE_ENV=production webpack --config webpack.config.card.js",
+    "build:edit": "NODE_ENV=production webpack --config webpack.config.edit_card.js"
   },
   "author": "",
   "license": "ISC"

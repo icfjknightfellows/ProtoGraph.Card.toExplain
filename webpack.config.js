@@ -1,43 +1,8 @@
 const webpack = require('webpack');
+const card = require('./webpack.config.card.js');
+const edit_card = require('./webpack.config.edit_card.js');
 
-module.exports = {
-  entry: './main.js',
-  output: {
-    path: './',
-    filename: './dist/0.0.1/card.min.js'
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production')
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin()
-  ],
-  node: {
-    net: 'empty',
-    tls: 'empty',
-    fs: 'empty'
-  },
-  module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query:
-        {
-          presets:['react']
-        }
-      },
-      {
-        test: /\.css$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      }
-    ]
-  }
-};
+module.exports = [
+  card,
+  edit_card
+];
