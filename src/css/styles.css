@@ -10,11 +10,11 @@ body{
   width: 50%;
 }
 
-#ProtoScreenshot  {
+#ProtoScreenshot {
   width: 450px;
   padding: 10px 15px;
   margin-left: 20px;
-  max-height: 450px;
+  height: 450px;
   overflow: hidden;
 }
 
