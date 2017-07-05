@@ -42,8 +42,6 @@ export default class ExplainerCard extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount", this.props.dataURL)
-    console.log(this.props)
     // get sample json data based on type i.e string or object
     if (this.state.fetchingData){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])

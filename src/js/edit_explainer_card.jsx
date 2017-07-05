@@ -65,7 +65,6 @@ export default class EditExplainerCard extends React.Component {
       case 2:
         this.setState((prevStep, prop) => {
           let dataJSON = prevStep.dataJSON;
-          console.log(dataJSON, "dataJSON")
           dataJSON.configs = formData
           return {
             dataJSON: dataJSON
@@ -116,7 +115,6 @@ export default class EditExplainerCard extends React.Component {
   }
 
   renderSEO() {
-    console.log(this.state.dataJSON.card_data, "this.state.dataJSON in seo mode")
     let seo_blockquote = `<blockquote><h3>${this.state.dataJSON.card_data.data.explainer_header}</h3><p>${this.state.dataJSON.card_data.data.explainer_text}</p></blockquote>`
     return seo_blockquote;
   }
