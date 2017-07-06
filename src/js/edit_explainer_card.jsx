@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import ExplainerCard from './Container.jsx';
-import JSONSchemaForm from './react-jsonschema-form';
+import JSONSchemaForm from '../../lib/js/react-jsonschema-form';
 
 export default class EditExplainerCard extends React.Component {
   constructor(props) {
@@ -155,7 +155,7 @@ export default class EditExplainerCard extends React.Component {
   showButtonText() {
     switch(this.state.step) {
       case 1:
-        return 'Proceed to next step';
+        return 'Next';
         break;
       case 2:
         return 'Publish';

@@ -16,7 +16,7 @@ module.exports = {
   externals: {
     'react': 'React',
     'react-dom': 'ReactDOM',
-    './react-jsonschema-form': 'JSONSchemaForm',
+    '../../lib/js/react-jsonschema-form': 'JSONSchemaForm',
     'axios': 'axios'
   },
   node: {
