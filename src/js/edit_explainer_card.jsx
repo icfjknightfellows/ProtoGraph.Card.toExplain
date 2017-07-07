@@ -14,6 +14,7 @@ export default class EditExplainerCard extends React.Component {
         configs: {}
       },
       mode: "laptop",
+      publishing: false,
       schemaJSON: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
@@ -81,15 +82,15 @@ export default class EditExplainerCard extends React.Component {
         this.setState({
           step: 2
         });
-        // if(this.props.editData && (typeof this.props.editData.onLastStep === "function")) {
-        //   this.props.editData.onLastStep();
-        // }
         break;
       case 2:
         if (typeof this.props.onPublishCallback === "function") {
-          this.props.onPublishCallback();
+          this.setState({ publishing: true });
+          let publishCallback = this.props.onPublishCallback();
+          publishCallback.then((message) => {
+            this.setState({ publishing: false });
+          });
         }
-        // alert("The card is published");
         break;
     }
   }
@@ -206,8 +207,8 @@ export default class EditExplainerCard extends React.Component {
                   onSubmit={((e) => this.onSubmitHandler(e))}
                   onChange={((e) => this.onChangeHandler(e))}
                   formData={this.renderFormData()}>
-                  <a id="protograph-prev-link" onClick = {((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
-                  <button type="submit" className="default-button protograph-primary-button">{this.showButtonText()}</button>
+                  <a id="protograph-prev-link" className={`${this.state.publishing ? 'protograph-disable' : ''}`} onClick={((e) => this.onPrevHandler(e))}>{this.showLinkText()} </a>
+                  <button type="submit" className={`${this.state.publishing ? 'ui primary loading disabled button' : ''} default-button protograph-primary-button`}>{this.showButtonText()}</button>
                 </JSONSchemaForm>
               </div>
               <div className="twelve wide column proto-card-preview proto-share-card-div">

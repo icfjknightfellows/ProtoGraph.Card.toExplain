@@ -46,4 +46,9 @@
   text-align: center;
   margin-bottom: 15px;
 }
+
+.protograph-disable {
+  pointer-events: none;
+  cursor: default;
+}
 /*# sourceMappingURL=master-style.css.map */
