@@ -7,7 +7,7 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="text/css" href="card.min.css">
     <script type="text/javascript">
-            var endpoint, siteId, origin;
+      var endpoint, siteId, origin;
       // Setting variables from environment
       origin = window.location.origin;
       if (origin == 'https://s3.ap-south-1.amazonaws.com') {
@@ -51,7 +51,6 @@
   </head>
   <body>
     <div id="explainer-div"></div></br>
-    <script src="https://d2m6lzru8erw1k.cloudfront.net/lib/oasis.min.js"></script>
     <!-- // <script src="lib/oasis.min.js"></script> -->
     <script src = "card.min.js"></script>
     <script type="text/javascript">
@@ -76,64 +75,19 @@
       });
     }
 
-    var ReceiverConsumer = Oasis.Consumer.extend({
-      requests: {
-        receive: function(mode) {
-          get(endpoint+'/api/v1/view_casts/'+param).then(function (response) {
-            let response_object = JSON.parse(response);
-            x.init({
-              selector: document.querySelector('#explainer-div'),
-              data_url: response_object.data_url,
-              schema_url: response_object.schema_json,
-              configuration_url: response_object.configuration_url,
-              configuration_schema_url: 'configuration_schema.json'
-            })
-            renderWithMode(mode);
-          }, function(error) {
-            console.error("Failed!", error);
-          })
-        }
-      },
-      events: {
-        get_size: function(){
-          var that = this;
-          var intervalId = setInterval(function(){
-            clientRect = x.getData();
-            if(clientRect.height){
-              var height = clientRect.height,
-                width = clientRect.width;
-              that.send("resize_frame", {height: height, width: width});
-              clearInterval(intervalId);
-            }
-          }, 10)
-
-        },
-        change_mode: function(mode){
-          renderWithMode(mode);
-          var that = this;
-          setTimeout(function(){
-            height = x.getData().height;
-            that.send("resize_frame", {height: height});
-          })
-        }
-      }
-    });
-    oasis.connect({
-      consumers: {
-        receive: ReceiverConsumer
-      }
-    });
-
-    function renderWithMode(mode) {
-      switch(mode){
-        case "laptop":
-          x.renderLaptop();
-          break;
-        case "mobile":
-          x.renderMobile();
-          break;
-      }
-    }
+    get(endpoint+'/api/v1/view_casts/'+param).then(function (response) {
+      let response_object = JSON.parse(response);
+      x.init({
+        selector: document.querySelector('#explainer-div'),
+        data_url: response_object.data_url,
+        schema_url: response_object.schema_json,
+        configuration_url: response_object.configuration_url,
+        configuration_schema_url: 'configuration_schema.json'
+      });
+      x.renderMobile();
+    }, function(error) {
+      console.error("Failed!", error);
+    })
 
     </script>
   </body>
