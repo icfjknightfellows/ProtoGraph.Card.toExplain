@@ -91,12 +91,14 @@ export default class ExplainerCard extends React.Component {
       wordArray.pop();
       el.innerHTML = wordArray.join(' ') + '...' + '<span><a id="protograph_read_more">Read more</a></span>';
     }
-    document.getElementById('protograph_read_more').addEventListener('click', function(){
-      document.querySelector('.protograph_explainer_text').style.height = 'auto';
-      document.querySelector('.protograph_explainer_text').innerHTML = data.data.explainer_text;
-      // console.log(props, "props")
-      props.clickCallback();
-    })
+    if(document.getElementById('protograph_read_more') !== null){
+      document.getElementById('protograph_read_more').addEventListener('click', function(){
+        document.querySelector('.protograph_explainer_text').style.height = 'auto';
+        document.querySelector('.protograph_explainer_text').innerHTML = data.data.explainer_text;
+        // console.log(props, "props")
+        props.clickCallback();
+      })
+    }
   }
 
   renderLaptop() {
@@ -111,7 +113,7 @@ export default class ExplainerCard extends React.Component {
         <div>
           <div id="protograph_div" className = "protograph_card_div" style = {styles}>
             <h1 className="protograph_explainer_header" style= {header_style}> {data.data.explainer_header} </h1>
-            <div className="protograph_explainer_text">{data.data.explainer_text}</div>          
+            <div className="protograph_explainer_text">{data.data.explainer_text}</div>
           </div>
         </div>
       )
@@ -143,12 +145,13 @@ export default class ExplainerCard extends React.Component {
     } else {
       const data = this.state.dataJSON.card_data;
       let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined
+      let screenshot_styles =  {
+        height:'auto'
+      }
       return (
-          <div id="ProtoScreenshot" className = "protograph_card_div_screenshot" style = {styles}>
+          <div id="ProtoScreenshot" className = "protograph_card_div" style = {styles}>
             {/* <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1> */}
-            <div className="protograph_explainer_text_screenshot">
-              <p>{data.data.explainer_text} </p>
-            </div>
+            <div className="protograph_explainer_text" style = {screenshot_styles}>{data.data.explainer_text}</div>
           </div>
 
       )
