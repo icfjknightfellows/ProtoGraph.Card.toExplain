@@ -56,7 +56,7 @@
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toExplain();
     let param = location.search.split('ViewCast_Unique_Identifier=')[1],
-      mode = location.search.split();
+      mode = location.search.split('mode=')[1];
     function get(url) {
       return new Promise(function(resolve, reject) {
         var req = new XMLHttpRequest();
@@ -97,6 +97,7 @@
           x.renderLaptop();
           break;
         case "mobile":
+        default:
           x.renderMobile();
           break;
       }
