@@ -76,6 +76,7 @@ ProtoGraph.Card.toExplain.prototype.renderMobile = function (data) {
       optionalConfigURL={this.options.configuration_url}
       optionalConfigSchemaURL={this.options.configuration_schema_url}
       mode={this.mode}
+      clickCallback={this.options.onClickCallback}
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;
       }}/>,
