@@ -46,6 +46,7 @@ export default class ExplainerCard extends React.Component {
     if (this.state.fetchingData){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
+        console.log("componentDidMount - Done")
           this.setState({
             fetchingData: false,
             dataJSON: {
@@ -56,9 +57,15 @@ export default class ExplainerCard extends React.Component {
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
           });
-
         }));
+    } else {
+      this.componentDidUpdate();
     }
+  }
+
+  componentDidUpdate() {
+    let elem = document.querySelector('.protograph_explainer_text')
+    this.multiLineTruncate(elem)
   }
 
   getScreenSize() {
@@ -75,20 +82,36 @@ export default class ExplainerCard extends React.Component {
     };
   }
 
+  multiLineTruncate(el) {
+    let data = this.state.dataJSON.card_data,
+      wordArray = data.data.explainer_text.split(' '),
+      props = this.props;
+    // console.log(wordArray, "wordArray", el, el.scrollHeight, el.offsetHeight)
+    while(el.scrollHeight > el.offsetHeight) {
+      wordArray.pop();
+      el.innerHTML = wordArray.join(' ') + '...' + '<span><a id="protograph_read_more">Read more</a></span>';
+    }
+    document.getElementById('protograph_read_more').addEventListener('click', function(){
+      document.querySelector('.protograph_explainer_text').style.height = 'auto';
+      document.querySelector('.protograph_explainer_text').innerHTML = data.data.explainer_text;
+      // console.log(props, "props")
+      props.clickCallback();
+    })
+  }
+
   renderLaptop() {
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
+      let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined
       styles["width"] = "100%";
+      let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.band_color} : undefined;
       return (
         <div>
           <div id="protograph_div" className = "protograph_card_div" style = {styles}>
-            <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1>
-            <div className="protograph_explainer_text">
-              <p>{data.data.explainer_text} </p>
-            </div>
+            <h1 className="protograph_explainer_header" style= {header_style}> {data.data.explainer_header} </h1>
+            <div className="protograph_explainer_text">{data.data.explainer_text}</div>          
           </div>
         </div>
       )
@@ -100,15 +123,14 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
+      let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined
       styles['width'] = '300px';
+      let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.band_color} : undefined;
       return (
         <div>
           <div id="protograph_div" className = "protograph_card_div" style = {styles}>
-            <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1>
-            <div className="protograph_explainer_text">
-              <p>{data.data.explainer_text} </p>
-            </div>
+            <h1 className="protograph_explainer_header" style= {header_style}> {data.data.explainer_header} </h1>
+            <div className="protograph_explainer_text">{data.data.explainer_text}</div>
           </div>
         </div>
       )
@@ -120,9 +142,8 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
+      let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined
       return (
-
           <div id="ProtoScreenshot" className = "protograph_card_div_screenshot" style = {styles}>
             {/* <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1> */}
             <div className="protograph_explainer_text_screenshot">
@@ -149,6 +170,5 @@ export default class ExplainerCard extends React.Component {
           return this.renderScreenshot();
           break;
     }
-
   }
 }

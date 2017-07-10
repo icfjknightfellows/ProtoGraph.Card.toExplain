@@ -95,26 +95,6 @@ export default class EditExplainerCard extends React.Component {
     }
   }
 
-  renderLaptop() {
-    // console.log(this.state.schemaJSON, this.state, this.props, "inside renderLaptop")
-    if (this.state.schemaJSON === undefined ){
-      return(<div>Loading</div>)
-    } else {
-      const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
-      return (
-        <div>
-          <div id="protograph_div" className = "protograph_card_div" style = {styles}>
-            <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1>
-            <div className="protograph_explainer_text">
-              <p>{data.data.explainer_text} </p>
-            </div>
-          </div>
-        </div>
-      )
-    }
-  }
-
   renderSEO() {
     let seo_blockquote = `<blockquote><h3>${this.state.dataJSON.card_data.data.explainer_header}</h3><p>${this.state.dataJSON.card_data.data.explainer_text}</p></blockquote>`
     return seo_blockquote;
@@ -172,6 +152,8 @@ export default class EditExplainerCard extends React.Component {
   }
 
   toggleMode(e) {
+    document.querySelector('.protograph_explainer_text').style.height = '70px'
+    document.querySelector('.protograph_explainer_text').innerHTML = this.state.dataJSON.card_data.data.explainer_text;
     let element = e.target.closest('a'),
       mode = element.getAttribute('data-mode');
     this.setState((prevState, props) => {

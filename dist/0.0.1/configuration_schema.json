@@ -3,10 +3,10 @@
   "definitions": {},
   "id": "http://example.com/example.json",
   "properties": {
-    "background_color": {
-      "default": "Blue",
-      "id": "/properties/background_color",
-      "title": "Background Color",
+    "band_color": {
+      "default": "#333",
+      "id": "/properties/band_color",
+      "title": "Band Color",
       "type": "string",
       "format": "color"
     }

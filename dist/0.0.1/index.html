@@ -50,7 +50,7 @@
 
   </head>
   <body>
-    <div id="explainer-div"></div></br>
+    <div id="explainer-div"></div>
     <script src="https://d2m6lzru8erw1k.cloudfront.net/lib/oasis.min.js"></script>
     <!-- // <script src="lib/oasis.min.js"></script> -->
     <script src = "card.min.js"></script>
@@ -79,19 +79,29 @@
     var ReceiverConsumer = Oasis.Consumer.extend({
       requests: {
         receive: function(mode) {
-          get(endpoint+'/api/v1/view_casts/'+param).then(function (response) {
-            let response_object = JSON.parse(response);
+          var that = this;
+          // get(endpoint+'/api/v1/view_casts/'+param).then(function (response) {
+            // let response_object = JSON.parse(response);
             x.init({
               selector: document.querySelector('#explainer-div'),
-              data_url: response_object.data_url,
-              schema_url: response_object.schema_json,
-              configuration_url: response_object.configuration_url,
-              configuration_schema_url: 'configuration_schema.json'
+              data_url: "https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/Schemas/toExplain/0.0.1/sample.json",
+              schema_url: 'https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/Schemas/toExplain/0.0.1/schema.json',
+              configuration_url: "configuration_sample.json",
+              configuration_schema_url: 'configuration_schema.json',
+              onClickCallback: function () {
+                let h = x.getData().height;
+                console.log(that, "thattttttt", h, x)
+                that.send('resize_frame', {width: '100%', height: h})
+              }
+              // data_url: response_object.data_url,
+              // schema_url: response_object.schema_json,
+              // configuration_url: response_object.configuration_url,
+              // configuration_schema_url: 'configuration_schema.json'
             })
             renderWithMode(mode);
-          }, function(error) {
-            console.error("Failed!", error);
-          })
+          // }, function(error) {
+          //   console.error("Failed!", error);
+          // })
         }
       },
       events: {
@@ -102,6 +112,7 @@
             if(clientRect.height){
               var height = clientRect.height,
                 width = clientRect.width;
+              console.log(that, "that in get size")
               that.send("resize_frame", {height: height, width: width});
               clearInterval(intervalId);
             }

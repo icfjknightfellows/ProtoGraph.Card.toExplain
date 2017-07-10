@@ -10,7 +10,7 @@ body{
   width: 50%;
 }
 
-#ProtoScreenshot  {
+#ProtoScreenshot {
   width: 450px;
   padding: 10px 15px;
   margin-left: 20px;
@@ -46,9 +46,7 @@ fieldset {
   font-family: sans-serif;
   font-weight: 900;
   min-height: 24px;
-  /*padding-bottom: 18px;*/
-  color: #333;
-  padding-left:5px;
+  margin-top: 0px;
 }
 
 .protograph_explainer_text {
@@ -56,9 +54,8 @@ fieldset {
   font-family: sans-serif;
   font-size: 14px;
   font-weight: 400;
-  padding-left:5px;
-  /*white-space: pre-wrap;*/
   line-height: 1.5em;
+  height: 70px;
 }
 
 .protograph_card_div {
@@ -67,31 +64,32 @@ fieldset {
   position: relative;
   text-align: left;
   color: #333 !important;
-  border: 1px solid #efefef;
-  border-radius: 4px;
-  padding: 15px !important;
-  box-shadow: 0px 15px 10px #efefef;
-  /*margin-top: 30px;*/
+  padding: 10px 20px 5px 15px;
+  background: #efefef;
   font-weight: 400 !important;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
 }
 
+.protograph-edit-form {
+  border-right: 1px solid #efefef ;
+  box-sizing: border-box;
+}
 
-
-
-/*#proto_read_more_link {
-  color: white;
+#protograph_read_more {
+  color: #086FB4;
   cursor: pointer;
-}*/
+  text-decoration: none;
+}
+
 .protograph-primary-button {
   margin-left: 0.75em;
 }
 
 @media only screen and (max-width: 450px){
   .protograph_explainer_text {
-    padding-left: 5px;
+    /*padding-left: 5px;*/
   }
   #protograph-explainer-card-div {
     padding-right: 0px;
