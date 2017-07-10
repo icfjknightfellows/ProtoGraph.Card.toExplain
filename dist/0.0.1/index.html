@@ -23,14 +23,14 @@
             break;
           case "dev.cdn.protograph":
           default:
-            endpoint = "https://02000d7c.ngrok.io";
+            endpoint = "https://e6340ed0.ngrok.io";
             break;
         }
       } else if (origin === 'https://dkqrqc7q64awx.cloudfront.net') {
         endpoint = "https://protograph-staging.pykih.com";
         siteId = '2';
       } else {
-        endpoint = "https://02000d7c.ngrok.io";
+        endpoint = "https://e6340ed0.ngrok.io";
       }
 
       if(siteId){
@@ -56,7 +56,7 @@
     <script src = "card.min.js"></script>
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toExplain();
-    let param = location.search.split('HtmlCast_Unique_Identifier=')[1];
+    let param = location.search.split('ViewCast_Unique_Identifier=')[1];
     function get(url) {
       return new Promise(function(resolve, reject) {
         var req = new XMLHttpRequest();

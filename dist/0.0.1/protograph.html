@@ -23,14 +23,14 @@
             break;
           case "dev.cdn.protograph":
           default:
-            endpoint = "https://02000d7c.ngrok.io";
+            endpoint = "https://e6340ed0.ngrok.io";
             break;
         }
       } else if (origin === 'https://dkqrqc7q64awx.cloudfront.net') {
         endpoint = "https://protograph-staging.pykih.com";
         siteId = '2';
       } else {
-        endpoint = "https://02000d7c.ngrok.io";
+        endpoint = "https://e6340ed0.ngrok.io";
       }
 
       if(siteId){
@@ -55,7 +55,8 @@
     <script src = "card.min.js"></script>
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toExplain();
-    let param = location.search.split('HtmlCast_Unique_Identifier=')[1];
+    let param = location.search.split('ViewCast_Unique_Identifier=')[1],
+      mode = location.search.split('mode=')[1];
     function get(url) {
       return new Promise(function(resolve, reject) {
         var req = new XMLHttpRequest();
@@ -84,10 +85,23 @@
         configuration_url: response_object.configuration_url,
         configuration_schema_url: 'configuration_schema.json'
       });
-      x.renderMobile();
+      renderWithMode(mode);
     }, function(error) {
       console.error("Failed!", error);
     })
+
+
+    function renderWithMode(mode) {
+      switch(mode){
+        case "laptop":
+          x.renderLaptop();
+          break;
+        case "mobile":
+        default:
+          x.renderMobile();
+          break;
+      }
+    }
 
     </script>
   </body>
