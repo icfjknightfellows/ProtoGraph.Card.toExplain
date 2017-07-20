@@ -7,30 +7,23 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <link rel="stylesheet" type="text/css" href="card.min.css">
     <script type="text/javascript">
-      var endpoint, siteId, origin;
+      var siteId, origin, base_url;
       // Setting variables from environment
       origin = window.location.origin;
       if (origin == 'https://s3.ap-south-1.amazonaws.com') {
         let bucket_name = window.location.pathname.split('/')['1'];
+        base_url = origin + "/" + bucket_name;
         switch(bucket_name){
           case "cdn.protograph":
-            endpoint = "https://protograph.pykih.com";
             siteId = '1';
             break;
           case "staging.cdn.protograph":
-            endpoint = "https://protograph-staging.pykih.com";
             siteId = '2';
-            break;
-          case "dev.cdn.protograph":
-          default:
-            endpoint = "https://e6340ed0.ngrok.io";
             break;
         }
       } else if (origin === 'https://dkqrqc7q64awx.cloudfront.net') {
-        endpoint = "https://protograph-staging.pykih.com";
         siteId = '2';
-      } else {
-        endpoint = "https://e6340ed0.ngrok.io";
+        base_url = origin;
       }
 
       if(siteId){
@@ -51,45 +44,45 @@
   </head>
   <body>
     <div id="explainer-div"></div></br>
-    <!-- // <script src="lib/oasis.min.js"></script> -->
     <script src = "card.min.js"></script>
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toExplain();
-    let param = location.search.split('ViewCast_Unique_Identifier=')[1],
-      mode = location.search.split('mode=')[1];
-    function get(url) {
-      return new Promise(function(resolve, reject) {
-        var req = new XMLHttpRequest();
-        req.open('GET', url);
-        req.onload = function() {
-          if (req.status == 200) {
-            resolve(req.response);
-          }
-          else {
-            reject(Error(req.statusText));
-          }
-        };
-        req.onerror = function() {
-          reject(Error("Network Error"));
-        };
-        req.send();
-      });
+
+    function findGetParameter(parameterName) {
+        var result = null,
+            tmp = [];
+        location.search
+            .substr(1)
+            .split("&")
+            .forEach(function (item) {
+              tmp = item.split("=");
+              if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            });
+        return result;
     }
 
-    get(endpoint+'/api/v1/view_casts/'+param).then(function (response) {
-      let response_object = JSON.parse(response);
+    let view_cast_id = findGetParameter('view_cast_id'),
+      schema_id = findGetParameter('schema_id'),
+      mode = findGetParameter('mode');
+
+    if(typeof (view_cast_id) !== 'undefined' && typeof(schema_id) !== 'undefined'){
+      var that = this,
+        data_base_path = base_url + "/" + view_cast_id,
+        schema_base_path = base_url + "/" + schema_id;
+
       x.init({
         selector: document.querySelector('#explainer-div'),
-        data_url: response_object.data_url,
-        schema_url: response_object.schema_json,
-        configuration_url: response_object.configuration_url,
-        configuration_schema_url: 'configuration_schema.json'
-      });
+        data_url: data_base_path + "/data.json",
+        schema_url: schema_base_path + "/schema.json",
+        configuration_url: data_base_path + "/view_cast.json",
+        configuration_schema_url: 'configuration_schema.json',
+        onClickCallback: function () {
+          let h = x.getData().height;
+          that.send('resize_frame', {width: '100%', height: h})
+        }
+      })
       renderWithMode(mode);
-    }, function(error) {
-      console.error("Failed!", error);
-    })
-
+    }
 
     function renderWithMode(mode) {
       switch(mode){
