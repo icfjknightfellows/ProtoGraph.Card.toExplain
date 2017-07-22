@@ -24,7 +24,7 @@
       } else if (origin === 'https://dkqrqc7q64awx.cloudfront.net') {
         siteId = '2';
         base_url = origin;
-      }
+      } else if (origin !== '')
 
       if(siteId){
         var _paq = _paq || [];
@@ -51,8 +51,10 @@
     var x = new ProtoGraph.Card.toExplain();
     function findGetParameter(parameterName) {
         var result = null,
-            tmp = [];
-        location.search
+            tmp = [],
+            search_url = decodeURIComponent(location.search);
+
+        search_url
             .substr(1)
             .split("&")
             .forEach(function (item) {
