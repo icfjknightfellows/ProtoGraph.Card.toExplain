@@ -24,7 +24,10 @@
       } else if (origin === 'https://dkqrqc7q64awx.cloudfront.net') {
         siteId = '2';
         base_url = origin;
-      } else if (origin !== '')
+      } else {
+        siteId = '1';
+        base_url = origin;
+      }
 
       if(siteId){
         var _paq = _paq || [];
