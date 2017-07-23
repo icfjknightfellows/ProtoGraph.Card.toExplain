@@ -69,9 +69,9 @@ fieldset {
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
-  box-shadow: 0 0 5px 5px lightgrey;
-  -webkit-box-shadow: 0 0 5px 5px lightgrey;
-  -moz-box-shadow: 0 0 5px 5px lightgrey;
+  box-shadow: 0 0 5px lightgrey;
+  -webkit-box-shadow: 0 0 5px lightgrey;
+  -moz-box-shadow: 0 0 5px lightgrey;
 
 .protograph-edit-form {
   border-right: 1px solid #efefef ;
