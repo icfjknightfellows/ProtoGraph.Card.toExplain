@@ -24,6 +24,9 @@
       } else if (origin === 'https://dkqrqc7q64awx.cloudfront.net') {
         siteId = '2';
         base_url = origin;
+      } else {
+        siteId = '1';
+        base_url = origin;
       }
 
       if(siteId){
@@ -51,8 +54,10 @@
     var x = new ProtoGraph.Card.toExplain();
     function findGetParameter(parameterName) {
         var result = null,
-            tmp = [];
-        location.search
+            tmp = [],
+            search_url = decodeURIComponent(location.search);
+
+        search_url
             .substr(1)
             .split("&")
             .forEach(function (item) {
