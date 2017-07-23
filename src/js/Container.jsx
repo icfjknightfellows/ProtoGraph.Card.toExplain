@@ -46,7 +46,6 @@ export default class ExplainerCard extends React.Component {
     if (this.state.fetchingData){
       axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
         .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
-        console.log("componentDidMount - Done")
           this.setState({
             fetchingData: false,
             dataJSON: {
@@ -106,9 +105,9 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined
+      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
       styles["width"] = "100%";
-      let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.band_color} : undefined;
+      let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.text_color} : undefined;
       return (
         <div>
           <div id="protograph_div" className = "protograph_card_div" style = {styles}>
@@ -125,9 +124,9 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined
+      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
       styles['width'] = '300px';
-      let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.band_color} : undefined;
+      let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.text_color} : undefined;
       return (
         <div>
           <div id="protograph_div" className = "protograph_card_div" style = {styles}>
@@ -144,7 +143,7 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined
+      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
       let screenshot_styles =  {
         height:'auto'
       }

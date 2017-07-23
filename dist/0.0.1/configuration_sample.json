@@ -1,3 +1,4 @@
 {
-  "band_color": "#333"
+  "background_color": "white",
+  "text_color": "#333"
 }

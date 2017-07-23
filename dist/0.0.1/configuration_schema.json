@@ -3,12 +3,13 @@
   "definitions": {},
   "id": "http://example.com/example.json",
   "properties": {
-    "band_color": {
-      "default": "#333",
-      "id": "/properties/band_color",
-      "title": "Band Color",
-      "type": "string",
-      "format": "color"
+    "background_color": {
+      "id": "/properties/background_color",
+      "type": "color"
+    },
+    "text_color": {
+      "id": "/properties/text_color",
+      "type": "color"
     }
   },
   "type": "object"
