@@ -2,15 +2,6 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "definitions": {},
   "id": "http://example.com/example.json",
-  "properties": {
-    "background_color": {
-      "id": "/properties/background_color",
-      "type": "color"
-    },
-    "text_color": {
-      "id": "/properties/text_color",
-      "type": "color"
-    }
-  },
+  "properties": {},
   "type": "object"
 }

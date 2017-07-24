@@ -16,7 +16,6 @@ export default class ExplainerCard extends React.Component {
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
     };
-
     if (this.props.dataJSON) {
       stateVar.fetchingData = false;
       stateVar.dataJSON = this.props.dataJSON;
@@ -38,7 +37,7 @@ export default class ExplainerCard extends React.Component {
   }
 
   exportData() {
-    return document.getElementById('protograph_div').getBoundingClientRect();
+    return document.getElementById('protograph-div').getBoundingClientRect();
   }
 
   componentDidMount() {
@@ -63,39 +62,26 @@ export default class ExplainerCard extends React.Component {
   }
 
   componentDidUpdate() {
-    let elem = document.querySelector('.protograph_explainer_text')
+    let elem = document.querySelector('.protograph-explainer-text')
     this.multiLineTruncate(elem)
-  }
-
-  getScreenSize() {
-    let w = window,
-      d = document,
-      e = d.documentElement,
-      g = d.getElementsByTagName('body')[0],
-      width = w.innerWidth || e.clientWidth || g.clientWidth,
-      height = w.innerHeight|| e.clientHeight|| g.clientHeight;
-
-    return {
-      width: width,
-      height: height
-    };
   }
 
   multiLineTruncate(el) {
     let data = this.state.dataJSON.card_data,
       wordArray = data.data.explainer_text.split(' '),
       props = this.props;
-    // console.log(wordArray, "wordArray", el, el.scrollHeight, el.offsetHeight)
     while(el.scrollHeight > el.offsetHeight) {
       wordArray.pop();
-      el.innerHTML = wordArray.join(' ') + '...' + '<span><a id="protograph_read_more">Read more</a></span>';
+      el.innerHTML = wordArray.join(' ') + '...' + '<br><button id="read-more-button" class="protograph-read-more">View more</button>' ;
     }
-    if(document.getElementById('protograph_read_more') !== null){
-      document.getElementById('protograph_read_more').addEventListener('click', function(){
-        document.querySelector('.protograph_explainer_text').style.height = 'auto';
-        document.querySelector('.protograph_explainer_text').innerHTML = data.data.explainer_text;
-        // console.log(props, "props")
-        props.clickCallback();
+    if(document.getElementById('read-more-button') !== null){
+      document.getElementById('read-more-button').addEventListener('click', function(){
+        document.getElementById('read-more-button').style.display = 'none'
+        document.querySelector('.protograph-explainer-text').style.height = 'auto';
+        document.querySelector('.protograph-explainer-text').innerHTML = data.data.explainer_text;
+        if(typeof props.clickCallback === 'function') {
+          this.props.clickCallback();
+        }
       })
     }
   }
@@ -105,14 +91,15 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
-      styles["width"] = "100%";
-      let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.text_color} : undefined;
+      let styles = {
+        width : "100%"
+      }
       return (
-        <div>
-          <div id="protograph_div" className = "protograph_card_div" style = {styles}>
-            <h1 className="protograph_explainer_header" style= {header_style}> {data.data.explainer_header} </h1>
-            <div className="protograph_explainer_text">{data.data.explainer_text}</div>
+        <div id="protograph-div" style={styles}>
+          <div className="protograph-card">
+            <p className="protograph-tag">#{data.data.tag}</p>
+            <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
+            <p className="protograph-explainer-text">{data.data.explainer_text}</p>
           </div>
         </div>
       )
@@ -124,14 +111,15 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
-      styles['width'] = '300px';
-      let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.text_color} : undefined;
+      let styles = {
+        width : "300px"
+      }
       return (
-        <div>
-          <div id="protograph_div" className = "protograph_card_div" style = {styles}>
-            <h1 className="protograph_explainer_header" style= {header_style}> {data.data.explainer_header} </h1>
-            <div className="protograph_explainer_text">{data.data.explainer_text}</div>
+        <div id="protograph-div" style={styles}>
+          <div className="protograph-card">
+            <p className="protograph-tag">#{data.data.tag}</p>
+            <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
+            <p className="protograph-explainer-text">{data.data.explainer_text}</p>
           </div>
         </div>
       )
@@ -143,16 +131,12 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {backgroundColor: this.state.dataJSON.configs.background_color} : undefined
-      let screenshot_styles =  {
-        height:'auto'
-      }
       return (
-          <div id="ProtoScreenshot" className = "protograph_card_div" style = {styles}>
-            {/* <h1 className="protograph_explainer_header"> {data.data.explainer_header} </h1> */}
-            <div className="protograph_explainer_text" style = {screenshot_styles}>{data.data.explainer_text}</div>
+        <div id="ProtoScreenshot">
+          <div className="protograph-card">
+            <p className="protograph-explainer-text">{data.data.explainer_text}</p>
           </div>
-
+        </div>
       )
     }
   }
@@ -165,12 +149,9 @@ export default class ExplainerCard extends React.Component {
       case 'mobile' :
         return this.renderMobile();
         break;
-      case 'tablet' :
-        return this.renderLaptop();
-        break;
       case 'screenshot' :
-          return this.renderScreenshot();
-          break;
+        return this.renderScreenshot();
+        break;
     }
   }
 }

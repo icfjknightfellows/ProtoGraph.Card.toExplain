@@ -4,13 +4,11 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explainer Card</title>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>
     <link rel="stylesheet" type="text/css" href="src/css/styles.css">
   </head>
   <body>
     <div id="explainer-div"></div>
-    <!-- // <script src="https://d2m6lzru8erw1k.cloudfront.net/lib/oasis.min.js"></script> -->
-    <!-- // <script src="lib/oasis.min.js"></script> -->
     <script src = "dist/0.0.1/card.min.js"></script>
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toExplain();
@@ -22,7 +20,7 @@
       configuration_schema_url: 'dist/0.0.1/configuration_schema.json'
     })
 
-    x.renderLaptop();
+    x.renderMobile();
 
     </script>
   </body>
