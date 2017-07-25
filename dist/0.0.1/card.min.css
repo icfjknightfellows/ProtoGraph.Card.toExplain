@@ -70,7 +70,9 @@ h6{font-weight: 400 !important; font-size: 0.8em; color: gray !important;}
 }
 
 .protograph-tag{
-  font-weight: bold;
+  font-size: 12px;
+  color: gray;
+  font-weight: 200;
 }
 
 .protograph-explainer-text{
