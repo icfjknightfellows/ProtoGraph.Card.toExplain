@@ -99,7 +99,7 @@ export default class ExplainerCard extends React.Component {
       return (
         <div id="protograph-div" style={styles}>
           <div className="protograph-card">
-            {(data.data.tag !== '' || data.data.tag === undefined) ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
+            {(data.data.tag !== '' || data.data.tag !== undefined) ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
             <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
             <p className="protograph-explainer-text">{data.data.explainer_text}</p>
           </div>
@@ -119,7 +119,7 @@ export default class ExplainerCard extends React.Component {
       return (
         <div id="protograph-div" style={styles}>
           <div className="protograph-card">
-            {(data.data.tag !== '' || data.data.tag === undefined) ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
+            {(data.data.tag !== '' || data.data.tag !== undefined) ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
             <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
             <p className="protograph-explainer-text">{data.data.explainer_text}</p>
           </div>
