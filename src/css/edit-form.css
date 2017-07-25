@@ -20,6 +20,10 @@
   height: 100vh;
   padding-top: 15px; }
 
+.form-textbox{
+  font-family: 'Lato',Helvetica Neue,Arial,Helvetica,sans-serif !important;
+}
+
 .default-button {
   border: 1px solid #c5c5c5;
   display: inline-block;

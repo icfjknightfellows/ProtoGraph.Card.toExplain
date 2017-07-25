@@ -75,6 +75,8 @@ h6{font-weight: 400 !important; font-size: 0.8em; color: gray !important;}
 
 .protograph-explainer-text{
   height: 120px;
+  white-space: pre-line;
+  display: block;
 }
 
 .hide-content{
