@@ -62,8 +62,10 @@ export default class ExplainerCard extends React.Component {
   }
 
   componentDidUpdate() {
-    let elem = document.querySelector('.protograph-explainer-text')
-    this.multiLineTruncate(elem)
+    if (this.props.mode === 'mobile' || this.props.mode === 'laptop'){
+      let elem = document.querySelector('.protograph-explainer-text')
+      this.multiLineTruncate(elem) 
+    }   
   }
 
   multiLineTruncate(el) {
@@ -80,7 +82,7 @@ export default class ExplainerCard extends React.Component {
         document.querySelector('.protograph-explainer-text').style.height = 'auto';
         document.querySelector('.protograph-explainer-text').innerHTML = data.data.explainer_text;
         if(typeof props.clickCallback === 'function') {
-          this.props.clickCallback();
+          props.clickCallback();
         }
       })
     }
@@ -97,7 +99,7 @@ export default class ExplainerCard extends React.Component {
       return (
         <div id="protograph-div" style={styles}>
           <div className="protograph-card">
-            <p className="protograph-tag">#{data.data.tag}</p>
+            {data.data.tag !== '' ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
             <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
             <p className="protograph-explainer-text">{data.data.explainer_text}</p>
           </div>
@@ -117,7 +119,7 @@ export default class ExplainerCard extends React.Component {
       return (
         <div id="protograph-div" style={styles}>
           <div className="protograph-card">
-            <p className="protograph-tag">#{data.data.tag}</p>
+            {data.data.tag !== '' ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
             <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
             <p className="protograph-explainer-text">{data.data.explainer_text}</p>
           </div>
@@ -134,7 +136,7 @@ export default class ExplainerCard extends React.Component {
       return (
         <div id="ProtoScreenshot">
           <div className="protograph-card">
-            <p className="protograph-explainer-text">{data.data.explainer_text}</p>
+            <p>{data.data.explainer_text}</p>
           </div>
         </div>
       )
