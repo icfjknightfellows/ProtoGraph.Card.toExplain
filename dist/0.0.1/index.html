@@ -72,19 +72,16 @@
     var ReceiverConsumer = Oasis.Consumer.extend({
       requests: {
         receive: function(mode) {
-          // if(typeof (view_cast_id) !== 'undefined' && typeof(schema_id) !== 'undefined'){
-            var that = this
-              // data_base_path = base_url + "/" + view_cast_id,
-              // schema_base_path = base_url + "/" + schema_id;
+          if(typeof (view_cast_id) !== 'undefined' && typeof(schema_id) !== 'undefined'){
+            var that = this,
+              data_base_path = base_url + "/" + view_cast_id,
+              schema_base_path = base_url + "/" + schema_id;
 
             x.init({
               selector: document.querySelector('#explainer-div'),
-              // data_url: data_base_path + "/data.json",
-              // schema_url: schema_base_path + "/schema.json",
-              // configuration_url: data_base_path + "/view_cast.json",
-              data_url: 'https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/2e804dc00b362f24/sample.json',
-              schema_url: 'https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/2e804dc00b362f24/schema.json',
-              configuration_url: 'configuration_sample.json',
+              data_url: data_base_path + "/data.json",
+              schema_url: schema_base_path + "/schema.json",
+              configuration_url: data_base_path + "/view_cast.json",
               configuration_schema_url: 'configuration_schema.json',
               onClickCallback: function () {
                 let h = x.getData().height;
@@ -92,7 +89,7 @@
               }
             })
             renderWithMode(mode);
-          // }
+          }
         }
       },
       events: {
