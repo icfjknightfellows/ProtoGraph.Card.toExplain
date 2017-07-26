@@ -152,7 +152,7 @@ export default class EditExplainerCard extends React.Component {
   }
 
   toggleMode(e) {
-    document.querySelector('.protograph-explainer-text').style.height = '120px'
+    document.querySelector('.protograph-explainer-text').style.height = '110px'
     document.querySelector('.protograph-explainer-text').innerHTML = this.state.dataJSON.card_data.data.explainer_text;
     let element = e.target.closest('a'),
       mode = element.getAttribute('data-mode');
