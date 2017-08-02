@@ -16,6 +16,7 @@ export default class EditExplainerCard extends React.Component {
       mode: "laptop",
       publishing: false,
       schemaJSON: undefined,
+      errorOnFetchingData: undefined,
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
     }
@@ -48,7 +49,12 @@ export default class EditExplainerCard extends React.Component {
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
           });
-        }));
+        }))
+        .catch((error) => {
+          this.setState({
+            errorOnFetchingData: true
+          })
+        });
     }
   }
 
@@ -172,7 +178,21 @@ export default class EditExplainerCard extends React.Component {
 
   render() {
     if (this.state.schemaJSON === undefined) {
-      return(<div>Loading</div>)
+      return(
+        <div className="protograph-loader-container">
+          {
+            !this.state.errorOnFetchingData ?
+              "Loading"
+            :
+              <div className="ui negative message">
+                <div className="header">
+                  Failed to load resources
+                </div>
+                <p>Try to clear your browser cache and refresh the page. <a href="#" onClick={(e) => {location.reload(true)}}>Reload</a></p>
+              </div>
+          }
+        </div>
+      )
     } else {
       return (
         <div className="proto-container">
