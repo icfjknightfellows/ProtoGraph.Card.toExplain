@@ -9,8 +9,8 @@
   padding: 8px 0px;
   font-size: 12px;
   background: #fafafa !important;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  /*margin-bottom: 10px;*/
+  margin-top: 15px;
   transition: 0.2s ease-in-out;
 }
 
@@ -46,7 +46,7 @@ h6{font-weight: 400 !important; font-size: 0.8em; color: gray !important;}
 }
 
 .protograph-card:hover > .protograph-footer > .protograph-source{
-  color: #7a7a7a;
+  color: #7a7a7a ;
 }
 
 .protograph-card > .protograph-footer > .protograph-credits{
@@ -57,7 +57,11 @@ h6{font-weight: 400 !important; font-size: 0.8em; color: gray !important;}
   transition: 0.2s ease-in-out;
 }
 
-.protograph-card:hover > .protograph-footer > .protograph-credits{
+.protograph-card > .protograph-footer > .protograph-credits > .protograph-card-link{
+  color: transparent;
+}
+
+.protograph-card:hover > .protograph-footer > .protograph-credits > .protograph-card-link{
   color: #7a7a7a;
 }
 
@@ -70,11 +74,16 @@ h6{font-weight: 400 !important; font-size: 0.8em; color: gray !important;}
 }
 
 .protograph-tag{
-  font-weight: bold;
+  font-size: 12px;
+  color: gray;
+  font-weight: 200;
 }
 
 .protograph-explainer-text{
-  height: 120px;
+  height: 110px;
+  white-space: pre-line;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .hide-content{

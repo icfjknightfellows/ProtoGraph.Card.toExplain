@@ -80,6 +80,7 @@ export default class ExplainerCard extends React.Component {
       document.getElementById('read-more-button').addEventListener('click', function(){
         document.getElementById('read-more-button').style.display = 'none'
         document.querySelector('.protograph-explainer-text').style.height = 'auto';
+        document.querySelector('.protograph-explainer-text').style.marginBottom = '10px';
         document.querySelector('.protograph-explainer-text').innerHTML = data.data.explainer_text;
         if(typeof props.clickCallback === 'function') {
           props.clickCallback();
@@ -102,6 +103,9 @@ export default class ExplainerCard extends React.Component {
             {(data.data.hasOwnProperty('tag') && data.data.tag !== "undefined" && data.data.tag !== '' ) ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
             <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
             <p className="protograph-explainer-text">{data.data.explainer_text}</p>
+            <div className="protograph-footer">
+              <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/card/toexplain" target="_blank">toExplain</a></div>
+            </div>
           </div>
         </div>
       )
@@ -122,6 +126,9 @@ export default class ExplainerCard extends React.Component {
             {(data.data.hasOwnProperty('tag') && data.data.tag !== "undefined" && data.data.tag !== '' ) ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
             <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
             <p className="protograph-explainer-text">{data.data.explainer_text}</p>
+            <div className="protograph-footer">
+              <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/card/toexplain" target="_blank">toExplain</a></div>
+            </div>
           </div>
         </div>
       )

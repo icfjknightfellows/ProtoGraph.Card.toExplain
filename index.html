@@ -4,7 +4,7 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explainer Card</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://dwln9tzsi7g07.cloudfront.net/Assets/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="src/css/styles.css">
   </head>
   <body>
@@ -14,13 +14,14 @@
     var x = new ProtoGraph.Card.toExplain();
     x.init({
       selector: document.querySelector('#explainer-div'),
-      data_url: "https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/2e804dc00b362f24/sample.json",
+      // data_url: "https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/2e804dc00b362f24/sample.json",
+      data_url: "dist/0.0.1/sample.json",
       schema_url: "https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/2e804dc00b362f24/schema.json",
       configuration_url: "dist/0.0.1/configuration_sample.json",
       configuration_schema_url: 'dist/0.0.1/configuration_schema.json'
     })
 
-    x.renderMobile();
+    x.renderLaptop();
 
     </script>
   </body>
