@@ -184,11 +184,11 @@ export default class EditExplainerCard extends React.Component {
             !this.state.errorOnFetchingData ?
               "Loading"
             :
-              <div className="ui negative message">
+              <div className="ui basic message">
                 <div className="header">
                   Failed to load resources
                 </div>
-                <p>Try to clear your browser cache and refresh the page. <a href="#" onClick={(e) => {location.reload(true)}}>Reload</a></p>
+                <p>Try clearing your browser cache and refresh the page.</p>
               </div>
           }
         </div>
