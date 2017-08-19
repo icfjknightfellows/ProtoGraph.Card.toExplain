@@ -52,18 +52,18 @@
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toExplain();
     function findGetParameter(parameterName) {
-        var result = null,
-            tmp = [],
-            search_url = decodeURIComponent(location.search);
+      var result = null,
+        tmp = [],
+        search_url = decodeURIComponent(location.search);
 
-        search_url
-            .substr(1)
-            .split("&")
-            .forEach(function (item) {
-              tmp = item.split("=");
-              if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-            });
-        return result;
+      search_url
+        .substr(1)
+        .split("&")
+        .forEach(function (item) {
+          tmp = item.split("=");
+          if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+      return result;
     }
 
     let view_cast_id = findGetParameter('view_cast_id'),
@@ -71,25 +71,28 @@
 
     var ReceiverConsumer = Oasis.Consumer.extend({
       requests: {
-        receive: function(mode) {
-          if(typeof (view_cast_id) !== 'undefined' && typeof(schema_id) !== 'undefined'){
-            var that = this,
-              data_base_path = base_url + "/" + view_cast_id,
-              schema_base_path = base_url + "/" + schema_id;
+        receive: function(mode, readMoreEnabled) {
+          // if(typeof (view_cast_id) !== 'undefined' && typeof(schema_id) !== 'undefined'){
+            var that = this
+              // data_base_path = base_url + "/" + view_cast_id,
+              // schema_base_path = base_url + "/" + schema_id;
 
             x.init({
               selector: document.querySelector('#explainer-div'),
-              data_url: data_base_path + "/data.json",
-              schema_url: schema_base_path + "/schema.json",
-              configuration_url: data_base_path + "/view_cast.json",
+              data_url: 'sample.json',
+              schema_url: 'schema.json',
+              configuration_url: 'configuration_sample.json',
+              // data_url: data_base_path + "/data.json",
+              // schema_url: schema_base_path + "/schema.json",
+              // configuration_url: data_base_path + "/view_cast.json",
               configuration_schema_url: 'configuration_schema.json',
               onClickCallback: function () {
                 let h = x.getData().height;
                 that.send('resize_frame', {width: '100%', height: h})
               }
             })
-            renderWithMode(mode);
-          }
+            renderWithMode(mode, readMoreEnabled);
+          // }
         }
       },
       events: {
@@ -108,8 +111,8 @@
           }, 10)
 
         },
-        change_mode: function(mode){
-          renderWithMode(mode);
+        change_mode: function(mode, readMoreEnabled){
+          renderWithMode(mode, readMoreEnabled);
           var that = this;
           setTimeout(function(){
             height = x.getData().height;
@@ -124,13 +127,13 @@
       }
     });
 
-    function renderWithMode(mode) {
+    function renderWithMode(mode, readMoreEnabled) {
       switch(mode){
         case "laptop":
-          x.renderLaptop();
+          x.renderLaptop(readMoreEnabled);
           break;
         case "mobile":
-          x.renderMobile();
+          x.renderMobile(readMoreEnabled);
           break;
       }
     }

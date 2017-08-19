@@ -1,21 +1,22 @@
 .protograph-card{
-  padding: 20px;
+  padding: 15px 20px 3px;
+  background: #fafafa;
   transition: 0.2s ease-in-out;
 }
 
 .protograph-read-more{
-  width: 100%;
-  border: 1px solid #ececec!important;
+  width: 100px;
+  border-radius: 5px;
   padding: 8px 0px;
   font-size: 12px;
   background: #fafafa !important;
-  /*margin-bottom: 10px;*/
   margin-top: 15px;
   transition: 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .protograph-read-more:hover{
-  background: #efefef !important;
+  background: #fafafa !important;
 }
 
 h1.ui.header, h2.ui.header, h3.ui.header, h4.ui.header, h5.ui.header, h6.ui.header{
@@ -73,17 +74,9 @@ h6{font-weight: 400 !important; font-size: 0.8em; color: gray !important;}
   color: blue;
 }
 
-.protograph-tag{
-  font-size: 12px;
-  color: gray;
-  font-weight: 200;
-}
-
 .protograph-explainer-text{
-  height: 110px;
   white-space: pre-line;
   display: block;
-  margin-bottom: 5px;
 }
 
 .hide-content{

@@ -63,23 +63,26 @@ export default class ExplainerCard extends React.Component {
 
   componentDidUpdate() {
     if (this.props.mode === 'mobile' || this.props.mode === 'laptop'){
-      let elem = document.querySelector('.protograph-explainer-text')
-      this.multiLineTruncate(elem)
+      if (this.props.readMoreEnabled) {
+        let elem = document.querySelector('.protograph-explainer-text')
+        this.multiLineTruncate(elem)
+      }     
     }
   }
 
   multiLineTruncate(el) {
     let data = this.state.dataJSON.card_data,
+      border_style = this.state.dataJSON.configs ? `1px solid ${this.state.dataJSON.configs.band_color} !important` : undefined,
       wordArray = data.data.explainer_text.split(' '),
       props = this.props;
     while(el.scrollHeight > el.offsetHeight) {
       wordArray.pop();
-      el.innerHTML = wordArray.join(' ') + '...' + '<br><button id="read-more-button" class="protograph-read-more">View more</button>' ;
+      el.innerHTML = wordArray.join(' ') + '...' + '<br><button id="read-more-button" class="protograph-read-more" style="color:'+ this.state.dataJSON.configs.band_color +';border:'+border_style+'">Keep reading</button>' ;
     }
     if(document.getElementById('read-more-button') !== null){
       document.getElementById('read-more-button').addEventListener('click', function(){
         document.getElementById('read-more-button').style.display = 'none'
-        document.querySelector('.protograph-explainer-text').style.height = 'auto';
+        document.querySelector('.protograph-explainer-text').style.maxHeight = 'none';
         document.querySelector('.protograph-explainer-text').style.marginBottom = '10px';
         document.querySelector('.protograph-explainer-text').innerHTML = data.data.explainer_text;
         if(typeof props.clickCallback === 'function') {
@@ -89,50 +92,48 @@ export default class ExplainerCard extends React.Component {
     }
   }
 
-  renderLaptop() {
+  renderLaptop(readMoreEnabled) {
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
-    } else {
-      const data = this.state.dataJSON.card_data;
-      let styles = {
-        width : "100%"
-      }
-      return (
-        <div id="protograph-div" style={styles}>
-          <div className="protograph-card">
-            {(data.data.hasOwnProperty('tag') && data.data.tag !== "undefined" && data.data.tag !== '' ) ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
-            <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
-            <p className="protograph-explainer-text">{data.data.explainer_text}</p>
-            <div className="protograph-footer">
-              <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/card/toexplain" target="_blank">toExplain</a></div>
-            </div>
-          </div>
-        </div>
-      )
+    } else {     
+      return this.renderCard('laptop', readMoreEnabled);
     }
   }
 
-  renderMobile() {
+  renderMobile(readMoreEnabled) {
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
     } else {
-      const data = this.state.dataJSON.card_data;
-      let styles = {
-        width : "300px"
-      }
-      return (
-        <div id="protograph-div" style={styles}>
-          <div className="protograph-card">
-            {(data.data.hasOwnProperty('tag') && data.data.tag !== "undefined" && data.data.tag !== '' ) ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
-            <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
-            <p className="protograph-explainer-text">{data.data.explainer_text}</p>
-            <div className="protograph-footer">
-              <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/card/toexplain" target="_blank">toExplain</a></div>
-            </div>
+      return this.renderCard('mobile', readMoreEnabled);
+    }
+  }
+
+  renderCard(mode, readMoreEnabled) {
+    const data = this.state.dataJSON.card_data;
+    let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined;
+    styles["width"] = "100%";
+    if (mode === 'mobile') {
+      styles["maxWidth"] = "320px";
+    } 
+    let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.band_color} : undefined,
+    border_style = this.state.dataJSON.configs ? `1px solid ${this.state.dataJSON.configs.band_color}` : undefined;
+    if (document.getElementById("read-more-button") !== null) {
+      document.getElementById("read-more-button").style.border = border_style;
+      document.getElementById("read-more-button").style.color = this.state.dataJSON.configs.band_color
+    }
+    console.log(readMoreEnabled,"readMoreEnabled")
+    let max_height = readMoreEnabled ? {maxHeight:"110px"} : {maxHeight:"none"}
+    return (
+      <div id="protograph-div">
+        <div className="protograph-card" style={styles}>
+          <h3 className="ui header" style= {header_style}> {data.data.explainer_header}</h3>
+          <div className="protograph-explainer-text" style={max_height}>{data.data.explainer_text}</div>
+          <div className="protograph-footer">
+            <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/card/toexplain" target="_blank">toExplain</a></div>
           </div>
         </div>
-      )
-    }
+      </div>
+    )
   }
 
   renderScreenshot() {
@@ -140,9 +141,10 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
+      let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined;
       return (
         <div id="ProtoScreenshot">
-          <div className="protograph-card">
+          <div className="protograph-card" style={styles}>
             <p>{data.data.explainer_text}</p>
           </div>
         </div>
@@ -153,10 +155,10 @@ export default class ExplainerCard extends React.Component {
   render() {
     switch(this.props.mode) {
       case 'laptop' :
-        return this.renderLaptop();
+        return this.renderLaptop(this.props.readMoreEnabled);
         break;
       case 'mobile' :
-        return this.renderMobile();
+        return this.renderMobile(this.props.readMoreEnabled);
         break;
       case 'screenshot' :
         return this.renderScreenshot();

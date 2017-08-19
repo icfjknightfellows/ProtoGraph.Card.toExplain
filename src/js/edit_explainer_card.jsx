@@ -134,7 +134,7 @@ export default class EditExplainerCard extends React.Component {
         return '';
         break;
       case 2:
-        return '< Back to building the card';
+        return '< Back';
         break;
     }
   }
@@ -158,7 +158,7 @@ export default class EditExplainerCard extends React.Component {
   }
 
   toggleMode(e) {
-    document.querySelector('.protograph-explainer-text').style.height = '110px'
+    document.querySelector('.protograph-explainer-text').style.maxHeight = '110px'
     document.querySelector('.protograph-explainer-text').innerHTML = this.state.dataJSON.card_data.data.explainer_text;
     let element = e.target.closest('a'),
       mode = element.getAttribute('data-mode');
@@ -202,7 +202,7 @@ export default class EditExplainerCard extends React.Component {
                 <div>
                   <div className="section-title-text">Fill the form</div>
                   <div className="ui label proto-pull-right">
-                    ToExplain
+                    toExplain
                   </div>
                 </div>
                 <JSONSchemaForm schema={this.renderSchemaJSON()}

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "https://s3.ap-south-1.amazonaws.com/protos.dev/Schemas/toExplain/0.0.1/schema.json",
+  "properties": {
+    "data": {
+      "id": "/properties/data",
+      "properties": {
+        "explainer_header": {
+          "default": "",
+          "description": "",
+          "id": "/properties/data/properties/explainer_header",
+          "title": "Title",
+          "type": "string"
+        },
+        "explainer_text": {
+          "default": "",
+          "description": "",
+          "id": "/properties/data/properties/explainer_text",
+          "title": "Description",
+          "type": "string",
+          "format": "textarea"
+        }
+      },
+      "required": [
+        "explainer_text",
+        "explainer_header"
+      ],
+      "type": "object",
+      "title": "Card Data"
+    }
+  },
+  "required": [
+    "data"
+  ],
+  "type": "object"
+}

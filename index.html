@@ -14,15 +14,12 @@
     var x = new ProtoGraph.Card.toExplain();
     x.init({
       selector: document.querySelector('#explainer-div'),
-      // data_url: "https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/2e804dc00b362f24/sample.json",
       data_url: "dist/0.0.1/sample.json",
-      schema_url: "https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/2e804dc00b362f24/schema.json",
+      schema_url: "dist/0.0.1/schema.json",
       configuration_url: "dist/0.0.1/configuration_sample.json",
       configuration_schema_url: 'dist/0.0.1/configuration_schema.json'
     })
-
-    x.renderLaptop();
-
+    x.renderMobile(false);
     </script>
   </body>
 </html>
