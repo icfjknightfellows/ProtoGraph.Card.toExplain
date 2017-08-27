@@ -63,7 +63,8 @@ export default class ExplainerCard extends React.Component {
 
   componentDidUpdate() {
     if (this.props.mode === 'mobile' || this.props.mode === 'laptop'){
-      if (this.props.readMoreEnabled) {
+      // console.log(this.props.readMoreEnabled, "this.props.readMoreEnabled")
+      if (this.props.readMoreEnabled || this.props.readMoreEnabled === undefined) {
         let elem = document.querySelector('.protograph-explainer-text')
         this.multiLineTruncate(elem)
       }     
@@ -121,8 +122,8 @@ export default class ExplainerCard extends React.Component {
       document.getElementById("read-more-button").style.border = border_style;
       document.getElementById("read-more-button").style.color = this.state.dataJSON.configs.band_color
     }
-    console.log(readMoreEnabled,"readMoreEnabled")
-    let max_height = readMoreEnabled ? {maxHeight:"110px"} : {maxHeight:"none"}
+    // console.log(readMoreEnabled,"readMoreEnabled")
+    let max_height = readMoreEnabled || readMoreEnabled === undefined ? {maxHeight:"110px"} : {maxHeight:"none"}
     return (
       <div id="protograph-div">
         <div className="protograph-card" style={styles}>
