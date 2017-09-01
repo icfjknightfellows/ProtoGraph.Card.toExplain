@@ -2,3 +2,15 @@ node_modules
 *.DS_Store
 __pycache__/
 simple-cors-http-server.py
+
+# Emacs gitignore
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+# Libreoffice temp files
+*.~lock.*#
