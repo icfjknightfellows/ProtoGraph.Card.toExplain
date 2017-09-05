@@ -55,6 +55,11 @@ export default class ExplainerCard extends React.Component {
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
           });
+
+          if (typeof this.props.onLoadCallback === "function") {
+            this.props.onLoadCallback();
+          }
+
         }));
     } else {
       this.componentDidUpdate();
@@ -67,7 +72,7 @@ export default class ExplainerCard extends React.Component {
       if (this.props.readMoreEnabled || this.props.readMoreEnabled === undefined) {
         let elem = document.querySelector('.protograph-explainer-text')
         this.multiLineTruncate(elem)
-      }     
+      }
     }
   }
 
@@ -96,7 +101,7 @@ export default class ExplainerCard extends React.Component {
   renderLaptop(readMoreEnabled) {
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
-    } else {     
+    } else {
       return this.renderCard('laptop', readMoreEnabled);
     }
   }
@@ -115,7 +120,7 @@ export default class ExplainerCard extends React.Component {
     styles["width"] = "100%";
     if (mode === 'mobile') {
       styles["maxWidth"] = "320px";
-    } 
+    }
     let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.band_color} : undefined,
     border_style = this.state.dataJSON.configs ? `1px solid ${this.state.dataJSON.configs.band_color}` : undefined;
     if (document.getElementById("read-more-button") !== null) {

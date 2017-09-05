@@ -31,7 +31,9 @@ ProtoGraph.Card.toExplain.prototype.renderLaptop = function (data) {
       clickCallback={this.options.onClickCallback}
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;
-      }}/>,
+      }}
+      onLoadCallback={this.options.onLoadCallback}
+    />,
     this.options.selector);
 }
 
@@ -48,7 +50,9 @@ ProtoGraph.Card.toExplain.prototype.renderMobile = function (data) {
       clickCallback={this.options.onClickCallback}
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;
-      }}/>,
+      }}
+      onLoadCallback={this.options.onLoadCallback}
+    />,
     this.options.selector);
 }
 
@@ -63,7 +67,9 @@ ProtoGraph.Card.toExplain.prototype.renderScreenshot = function (data) {
       mode={this.mode}
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;
-      }}/>,
+      }}
+      onLoadCallback={this.options.onLoadCallback}
+    />,
     this.options.selector);
 }
 
