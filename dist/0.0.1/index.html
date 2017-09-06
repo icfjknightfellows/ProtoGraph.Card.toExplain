@@ -83,7 +83,7 @@
               schema_url: schema_base_path + "/schema.json",
               configuration_url: data_base_path + "/view_cast.json",
               configuration_schema_url: 'configuration_schema.json',
-              onLoadCallback: function () {
+              piwikCallback: function () {
                 _paq.push(['trackEvent', 'toExplain', 'page_view', view_cast_id]);
               },
               onClickCallback: function () {
