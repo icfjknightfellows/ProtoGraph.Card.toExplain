@@ -98,13 +98,13 @@
           var intervalId = setInterval(function(){
             try {
               clientRect = x.getData();
+              if(clientRect.height){
+                var height = clientRect.height,
+                  width = clientRect.width;
+                that.send("resize_frame", {height: height, width: width});
+                clearInterval(intervalId);
+              }
             } catch (err) {}
-            if(clientRect.height){
-              var height = clientRect.height,
-                width = clientRect.width;
-              that.send("resize_frame", {height: height, width: width});
-              clearInterval(intervalId);
-            }
           }, 10)
 
         },
