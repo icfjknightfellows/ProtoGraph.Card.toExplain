@@ -56,8 +56,8 @@ export default class ExplainerCard extends React.Component {
             optionalConfigSchemaJSON: opt_config_schema.data
           });
 
-          if (typeof this.props.onLoadCallback === "function") {
-            this.props.onLoadCallback();
+          if (typeof this.props.piwikCallback === "function") {
+            this.props.piwikCallback('toExplain', 'loaded', this.props.viewCastId);
           }
 
         }));

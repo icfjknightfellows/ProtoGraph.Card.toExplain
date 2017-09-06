@@ -76,11 +76,15 @@
         schema_base_path = base_url + "/" + schema_id;
 
       x.init({
+        viewCastId: view_cast_id,
         selector: document.querySelector('#explainer-div'),
         data_url: data_base_path + "/data.json",
         schema_url: schema_base_path + "/schema.json",
         configuration_url: data_base_path + "/view_cast.json",
         configuration_schema_url: 'configuration_schema.json',
+        piwikCallback: function (category, action, name) {
+          _paq.push(['trackEvent', category, action, name]);
+        },
         onClickCallback: function () {
           let h = x.getData().height;
           that.send('resize_frame', {width: '100%', height: h})

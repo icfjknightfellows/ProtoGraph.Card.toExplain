@@ -22,6 +22,7 @@ ProtoGraph.Card.toExplain.prototype.renderLaptop = function (data) {
   this.mode = 'laptop';
   ReactDOM.render(
     <ExplainerCard
+      viewCastId={this.options.viewCastId}
       dataURL={this.options.data_url}
       schemaURL={this.options.schema_url}
       optionalConfigURL={this.options.configuration_url}
@@ -32,7 +33,7 @@ ProtoGraph.Card.toExplain.prototype.renderLaptop = function (data) {
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;
       }}
-      onLoadCallback={this.options.onLoadCallback}
+      piwikCallback={this.options.piwikCallback}
     />,
     this.options.selector);
 }
@@ -41,6 +42,7 @@ ProtoGraph.Card.toExplain.prototype.renderMobile = function (data) {
   this.mode = 'mobile';
   ReactDOM.render(
     <ExplainerCard
+      viewCastId={this.options.viewCastId}
       dataURL={this.options.data_url}
       schemaURL={this.options.schema_url}
       optionalConfigURL={this.options.configuration_url}
@@ -51,7 +53,7 @@ ProtoGraph.Card.toExplain.prototype.renderMobile = function (data) {
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;
       }}
-      onLoadCallback={this.options.onLoadCallback}
+      piwikCallback={this.options.piwikCallback}
     />,
     this.options.selector);
 }
@@ -60,6 +62,7 @@ ProtoGraph.Card.toExplain.prototype.renderScreenshot = function (data) {
   this.mode = 'screenshot';
   ReactDOM.render(
     <ExplainerCard
+      viewCastId={this.options.viewCastId}
       dataURL={this.options.data_url}
       schemaURL={this.options.schema_url}
       optionalConfigURL={this.options.configuration_url}
@@ -68,7 +71,7 @@ ProtoGraph.Card.toExplain.prototype.renderScreenshot = function (data) {
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;
       }}
-      onLoadCallback={this.options.onLoadCallback}
+      piwikCallback={this.options.piwikCallback}
     />,
     this.options.selector);
 }
