@@ -4,7 +4,7 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explainer Card</title>
-    <link rel="stylesheet" type="text/css" href="https://dwln9tzsi7g07.cloudfront.net/Assets/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.protograph.pykih.com/Assets/semantic.min.css">
     <script type="text/javascript">
       var siteId, origin, base_url;
       // Setting variables from environment
@@ -47,7 +47,7 @@
   <body>
     <div id="explainer-div"></div>
     <link rel="stylesheet" type="text/css" href="card.min.css">
-    <script src="https://dwln9tzsi7g07.cloudfront.net/lib/protograph-core.min.js"></script>
+    <script src="https://cdn.protograph.pykih.com/lib/protograph-core.min.js"></script>
     <script src = "card.min.js"></script>
     <script type="text/javascript">
     var x = new ProtoGraph.Card.toExplain();
@@ -102,13 +102,13 @@
           var intervalId = setInterval(function(){
             try {
               clientRect = x.getData();
+              if(clientRect.height){
+                var height = clientRect.height,
+                  width = clientRect.width;
+                that.send("resize_frame", {height: height, width: width});
+                clearInterval(intervalId);
+              }
             } catch (err) {}
-            if(clientRect.height){
-              var height = clientRect.height,
-                width = clientRect.width;
-              that.send("resize_frame", {height: height, width: width});
-              clearInterval(intervalId);
-            }
           }, 10)
 
         },
