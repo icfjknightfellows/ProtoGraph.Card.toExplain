@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.protograph.pykih.com/Assets/semantic.min.css">
     <script type="text/javascript">
      var siteId, origin, base_url;
-     Setting variables from environment
+     // Setting variables from environment
      origin = window.location.origin;
      if (origin == 'https://s3.ap-south-1.amazonaws.com') {
        let bucket_name = window.location.pathname.split('/')['1'];
@@ -27,8 +27,9 @@
        siteId = '1';
        base_url = origin;
      }
-
-     /* siteId = 2;*/
+     // Uncomment below lines in development
+     /* base_url = "https://dnt71st2q6cqr.cloudfront.net";
+      * siteId = 2;*/
      if(siteId){
        var _paq = _paq || [];
        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
