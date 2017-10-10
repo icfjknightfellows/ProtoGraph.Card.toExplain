@@ -71,6 +71,10 @@
       mode = findGetParameter('mode'),
       readMoreEnabled = true;
 
+    if (siteId && view_cast_id) {
+      _paq.push(['trackEvent', 'toExplain', 'page_view', view_cast_id]);
+    }
+
     if(typeof (view_cast_id) !== 'undefined' && typeof(schema_id) !== 'undefined'){
       var  data_base_path = base_url + "/" + view_cast_id,
         schema_base_path = base_url + "/" + schema_id;
