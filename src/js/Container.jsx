@@ -67,7 +67,7 @@ export default class ExplainerCard extends React.Component {
       if (this.props.readMoreEnabled || this.props.readMoreEnabled === undefined) {
         let elem = document.querySelector('.protograph-explainer-text')
         this.multiLineTruncate(elem)
-      }     
+      }
     }
   }
 
@@ -96,7 +96,7 @@ export default class ExplainerCard extends React.Component {
   renderLaptop(readMoreEnabled) {
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
-    } else {     
+    } else {
       return this.renderCard('laptop', readMoreEnabled);
     }
   }
@@ -115,7 +115,7 @@ export default class ExplainerCard extends React.Component {
     styles["width"] = "100%";
     if (mode === 'mobile') {
       styles["maxWidth"] = "320px";
-    } 
+    }
     let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.band_color} : undefined,
     border_style = this.state.dataJSON.configs ? `1px solid ${this.state.dataJSON.configs.band_color}` : undefined;
     if (document.getElementById("read-more-button") !== null) {
@@ -130,7 +130,7 @@ export default class ExplainerCard extends React.Component {
           <h3 className="ui header" style= {header_style}> {data.data.explainer_header}</h3>
           <div className="protograph-explainer-text" style={max_height}>{data.data.explainer_text}</div>
           <div className="protograph-footer">
-            <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/card/toexplain" target="_blank">toExplain</a></div>
+            <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/cards/to-explain" target="_blank">toExplain</a></div>
           </div>
         </div>
       </div>
