@@ -135,7 +135,7 @@ export default class ExplainerCard extends React.Component {
           <h3 className="ui header" style= {header_style}> {data.data.explainer_header}</h3>
           <div className="protograph-explainer-text" style={max_height}>{data.data.explainer_text}</div>
           <div className="protograph-footer">
-            <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/card/toexplain" target="_blank">toExplain</a></div>
+            <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/cards/to-explain" target="_blank">toExplain</a></div>
           </div>
         </div>
       </div>
