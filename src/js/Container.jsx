@@ -9,8 +9,7 @@ export default class ExplainerCard extends React.Component {
     let stateVar = {
       fetchingData: true,
       dataJSON: {
-        card_data: {},
-        configs: {}
+        card_data: {}
       },
       schemaJSON: undefined,
       optionalConfigJSON: {},
@@ -27,6 +26,7 @@ export default class ExplainerCard extends React.Component {
 
     if (this.props.optionalConfigJSON) {
       stateVar.optionalConfigJSON = this.props.optionalConfigJSON;
+      stateVar.optionalConfigJSON.band_color = this.props.houseColors.house_color;
     }
 
     if (this.props.optionalConfigSchemaJSON) {
@@ -55,11 +55,6 @@ export default class ExplainerCard extends React.Component {
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
           });
-
-          if (typeof this.props.piwikCallback === "function") {
-            this.props.piwikCallback('toExplain', 'loaded', this.props.viewCastId);
-          }
-
         }));
     } else {
       this.componentDidUpdate();
@@ -68,7 +63,6 @@ export default class ExplainerCard extends React.Component {
 
   componentDidUpdate() {
     if (this.props.mode === 'mobile' || this.props.mode === 'laptop'){
-      // console.log(this.props.readMoreEnabled, "this.props.readMoreEnabled")
       if (this.props.readMoreEnabled || this.props.readMoreEnabled === undefined) {
         let elem = document.querySelector('.protograph-explainer-text')
         this.multiLineTruncate(elem)
@@ -78,12 +72,12 @@ export default class ExplainerCard extends React.Component {
 
   multiLineTruncate(el) {
     let data = this.state.dataJSON.card_data,
-      border_style = this.state.dataJSON.configs ? `1px solid ${this.state.dataJSON.configs.band_color} !important` : undefined,
+      border_style = this.state.optionalConfigJSON ? `1px solid ${this.state.optionalConfigJSON.band_color} !important` : undefined,
       wordArray = data.data.explainer_text.split(' '),
       props = this.props;
     while(el.scrollHeight > el.offsetHeight) {
       wordArray.pop();
-      el.innerHTML = wordArray.join(' ') + '...' + '<br><button id="read-more-button" class="protograph-read-more" style="color:'+ this.state.dataJSON.configs.band_color +';border:'+border_style+'">Keep reading</button>' ;
+      el.innerHTML = wordArray.join(' ') + '...' + '<br><button id="read-more-button" class="protograph-read-more" style="color:'+ this.state.optionalConfigJSON.band_color +';border:'+border_style+'">Keep reading</button>' ;
     }
     if(document.getElementById('read-more-button') !== null){
       document.getElementById('read-more-button').addEventListener('click', function(){
@@ -116,18 +110,17 @@ export default class ExplainerCard extends React.Component {
 
   renderCard(mode, readMoreEnabled) {
     const data = this.state.dataJSON.card_data;
-    let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined;
+    let styles = this.state.optionalConfigJSON ? {borderLeft: `5px solid ${this.state.optionalConfigJSON.band_color}`} : undefined;
     styles["width"] = "100%";
     if (mode === 'mobile') {
       styles["maxWidth"] = "320px";
     }
-    let header_style = this.state.dataJSON.configs ? {color: this.state.dataJSON.configs.band_color} : undefined,
-    border_style = this.state.dataJSON.configs ? `1px solid ${this.state.dataJSON.configs.band_color}` : undefined;
+    let header_style = this.state.optionalConfigJSON ? {color: this.state.optionalConfigJSON.band_color} : undefined,
+    border_style = this.state.optionalConfigJSON ? `1px solid ${this.state.optionalConfigJSON.band_color}` : undefined;
     if (document.getElementById("read-more-button") !== null) {
       document.getElementById("read-more-button").style.border = border_style;
-      document.getElementById("read-more-button").style.color = this.state.dataJSON.configs.band_color
+      document.getElementById("read-more-button").style.color = this.state.optionalConfigJSON.band_color
     }
-    // console.log(readMoreEnabled,"readMoreEnabled")
     let max_height = readMoreEnabled || readMoreEnabled === undefined ? {maxHeight:"110px"} : {maxHeight:"none"}
     return (
       <div id="protograph-div">
@@ -147,7 +140,7 @@ export default class ExplainerCard extends React.Component {
       return(<div>Loading</div>)
     } else {
       const data = this.state.dataJSON.card_data;
-      let styles = this.state.dataJSON.configs ? {borderLeft: `5px solid ${this.state.dataJSON.configs.band_color}`} : undefined;
+      let styles = this.state.optionalConfigJSON ? {borderLeft: `5px solid ${this.state.optionalConfigJSON.band_color}`} : undefined;
       return (
         <div id="ProtoScreenshot">
           <div className="protograph-card" style={styles}>

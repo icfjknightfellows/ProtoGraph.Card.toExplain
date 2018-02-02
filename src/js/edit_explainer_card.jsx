@@ -10,8 +10,7 @@ export default class EditExplainerCard extends React.Component {
     this.state = {
       step: 1,
       dataJSON: {
-        card_data: {},
-        configs: {}
+        card_data: {}
       },
       mode: "laptop",
       publishing: false,
@@ -28,7 +27,7 @@ export default class EditExplainerCard extends React.Component {
       step: this.state.step,
       dataJSON: this.state.dataJSON.card_data,
       schemaJSON: this.state.schemaJSON,
-      optionalConfigJSON: this.state.dataJSON.configs,
+      optionalConfigJSON: this.state.optionalConfigJSON,
       optionalConfigSchemaJSON: this.state.optionalConfigSchemaJSON
     }
     getDataObj["name"] = getDataObj.dataJSON.data.explainer_header.substr(0,225); // Reduces the name to ensure the slug does not get too long
@@ -69,27 +68,12 @@ export default class EditExplainerCard extends React.Component {
           }
         })
         break;
-      case 2:
-        this.setState((prevStep, prop) => {
-          let dataJSON = prevStep.dataJSON;
-          dataJSON.configs = formData
-          return {
-            dataJSON: dataJSON
-            // optionalConfigJSON: dataJSON
-          }
-        })
-        break;
     }
   }
 
   onSubmitHandler({formData}) {
     switch(this.state.step) {
       case 1:
-        this.setState({
-          step: 2
-        });
-        break;
-      case 2:
         if (typeof this.props.onPublishCallback === "function") {
           this.setState({ publishing: true });
           let publishCallback = this.props.onPublishCallback();
@@ -111,9 +95,9 @@ export default class EditExplainerCard extends React.Component {
       case 1:
         return this.state.schemaJSON;
         break;
-      case 2:
-        return this.state.optionalConfigSchemaJSON;
-        break;
+      // case 2:
+      //   return this.state.optionalConfigSchemaJSON;
+      //   break;
     }
   }
 
@@ -122,9 +106,9 @@ export default class EditExplainerCard extends React.Component {
       case 1:
         return this.state.dataJSON.card_data;
         break;
-      case 2:
-        return this.state.dataJSON.configs;
-        break;
+      // case 2:
+      //   return this.state.optionalConfigJSON;
+      //   break;
     }
   }
 
@@ -133,20 +117,20 @@ export default class EditExplainerCard extends React.Component {
       case 1:
         return '';
         break;
-      case 2:
-        return '< Back';
-        break;
+      // case 2:
+      //   return '< Back';
+      //   break;
     }
   }
 
   showButtonText() {
     switch(this.state.step) {
       case 1:
-        return 'Next';
-        break;
-      case 2:
         return 'Publish';
         break;
+      // case 2:
+      //   return 'Publish';
+      //   break;
     }
   }
 
@@ -236,6 +220,7 @@ export default class EditExplainerCard extends React.Component {
                   schemaJSON={this.state.schemaJSON}
                   optionalConfigJSON={this.state.optionalConfigJSON}
                   optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
+                  houseColors={this.props.houseColors}
                 />
               </div>
             </div>

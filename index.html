@@ -6,23 +6,6 @@
     <title>Explainer Card</title>
     <link rel="stylesheet" type="text/css" href="https://dwln9tzsi7g07.cloudfront.net/Assets/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="src/css/styles.css">
-    <script>
-     siteId = 2;
-     if(siteId){
-       var _paq = _paq || [];
-       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-       // _paq.push(["setCustomDimension", 1, document.URL])
-       _paq.push(['trackPageView']);
-       _paq.push(['enableLinkTracking']);
-       (function() {
-         var u="//protograph.innocraft.cloud/";
-         _paq.push(['setTrackerUrl', u+'piwik.php']);
-         _paq.push(['setSiteId', siteId]);
-         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-         g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-       })();
-     }
-    </script>
   </head>
   <body>
     <div id="explainer-div"></div>
@@ -33,12 +16,9 @@
        viewCastId: "3d8cd7034c0a275513c88ebc",
        selector: document.querySelector('#explainer-div'),
        data_url: "./dist/0.0.1/sample.json",
-       schema_url: "./schema.json",
-       configuration_url: "./configuration_sample.json",
-       configuration_schema_url: 'configuration_schema.json',
-       piwikCallback: function (category, action, name) {
-         _paq.push(['trackEvent', category, action, name]);
-       },
+       schema_url: "./dist/0.0.1/schema.json",
+       configuration_url: "./dist/0.0.1/configuration_sample.json",
+       configuration_schema_url: './dist/0.0.1/configuration_schema.json'
      })
      x.renderMobile();
     </script>

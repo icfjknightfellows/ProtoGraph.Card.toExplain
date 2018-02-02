@@ -21,6 +21,7 @@ ProtoGraph.Card.toExplain.prototype.renderEdit = function (onPublishCallback) {
       optionalConfigURL={this.options.configuration_url}
       optionalConfigSchemaURL={this.options.configuration_schema_url}
       onPublishCallback={this.onPublishCallback}
+      houseColors={this.options.houseColors}
       mode={this.mode}
       ref={(e) => {
         this.containerInstance = this.containerInstance || e;

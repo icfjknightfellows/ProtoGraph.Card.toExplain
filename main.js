@@ -20,46 +20,20 @@ ProtoGraph.Card.toExplain.prototype.getData = function (data) {
 
 ProtoGraph.Card.toExplain.prototype.renderLaptop = function (data) {
   this.mode = 'laptop';
-  ReactDOM.render(
-    <ExplainerCard
-      viewCastId={this.options.viewCastId}
-      dataURL={this.options.data_url}
-      schemaURL={this.options.schema_url}
-      optionalConfigURL={this.options.configuration_url}
-      optionalConfigSchemaURL={this.options.configuration_schema_url}
-      mode={this.mode}
-      readMoreEnabled={data}
-      clickCallback={this.options.onClickCallback}
-      ref={(e) => {
-        this.containerInstance = this.containerInstance || e;
-      }}
-      piwikCallback={this.options.piwikCallback}
-    />,
-    this.options.selector);
+  this.render();
 }
 
 ProtoGraph.Card.toExplain.prototype.renderMobile = function (data) {
   this.mode = 'mobile';
-  ReactDOM.render(
-    <ExplainerCard
-      viewCastId={this.options.viewCastId}
-      dataURL={this.options.data_url}
-      schemaURL={this.options.schema_url}
-      optionalConfigURL={this.options.configuration_url}
-      optionalConfigSchemaURL={this.options.configuration_schema_url}
-      mode={this.mode}
-      readMoreEnabled={data}
-      clickCallback={this.options.onClickCallback}
-      ref={(e) => {
-        this.containerInstance = this.containerInstance || e;
-      }}
-      piwikCallback={this.options.piwikCallback}
-    />,
-    this.options.selector);
+  this.render();
 }
 
 ProtoGraph.Card.toExplain.prototype.renderScreenshot = function (data) {
   this.mode = 'screenshot';
+  this.render();
+}
+
+ProtoGraph.Card.toExplain.prototype.render = function () {
   ReactDOM.render(
     <ExplainerCard
       viewCastId={this.options.viewCastId}
@@ -75,4 +49,3 @@ ProtoGraph.Card.toExplain.prototype.renderScreenshot = function (data) {
     />,
     this.options.selector);
 }
-

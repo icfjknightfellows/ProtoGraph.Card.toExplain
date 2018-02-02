@@ -19,10 +19,12 @@
     var x = new ProtoGraph.Card.toExplain()
     x.init({
       selector: document.querySelector('#explainer-div'),
-      data_url: "dist/0.0.1/sample.json",
-      schema_url: "dist/0.0.1/schema.json",
-      configuration_url: "dist/0.0.1/configuration_sample.json",
-      configuration_schema_url: 'dist/0.0.1/configuration_schema.json'
+      data_url: "./dist/0.0.1/sample.json",
+      schema_url: "./dist/0.0.1/schema.json",
+      configuration_url: "./dist/0.0.1/configuration_sample.json",
+      configuration_schema_url: './dist/0.0.1/configuration_schema.json',
+      houseColors: {house_color: "blue", inverse_house_color: "#2e9d6f",house_font_color:"#ffffff",
+    inverse_house_font_color:"#ffffff"}
     })
     // x.renderScreenshot();
     x.renderEdit();
