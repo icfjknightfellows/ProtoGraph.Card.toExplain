@@ -37,9 +37,29 @@ export default class EditExplainerCard extends React.Component {
   componentDidMount() {
     // get sample json data based on type i.e string or object
     if (typeof this.props.dataURL === "string"){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
-        .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
-          this.setState({
+      axios.all([
+        axios.get(this.props.dataURL),
+        axios.get(this.props.schemaURL),
+        axios.get(this.props.optionalConfigURL),
+        axios.get(this.props.optionalConfigSchemaURL),
+        axios.get(this.props.siteConfigURL)
+      ]).then(axios.spread((card, schema, opt_config, opt_config_schema, site_configs) => {
+        let stateVar = {
+          fetchingData: false,
+          dataJSON: {
+            card_data: card.data,
+            configs: opt_config.data
+          },
+          schemaJSON: schema.data,
+          optionalConfigJSON: opt_config.data,
+          optionalConfigSchemaJSON: opt_config_schema.data,
+          siteConfigs: site_configs.data
+        };
+        stateVar.optionalConfigJSON.band_color = stateVar.siteConfigs.house_colour;
+        this.setState(stateVar);
+
+
+        this.setState({
             dataJSON: {
               card_data: card.data,
               configs: opt_config.data
@@ -48,6 +68,8 @@ export default class EditExplainerCard extends React.Component {
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
           });
+
+
         }))
         .catch((error) => {
           this.setState({
@@ -220,7 +242,7 @@ export default class EditExplainerCard extends React.Component {
                   schemaJSON={this.state.schemaJSON}
                   optionalConfigJSON={this.state.optionalConfigJSON}
                   optionalConfigSchemaJSON={this.state.optionalConfigSchemaJSON}
-                  houseColors={this.props.houseColors}
+                  siteConfigs={this.state.siteConfigs}
                 />
               </div>
             </div>

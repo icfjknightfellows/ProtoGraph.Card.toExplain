@@ -15,6 +15,7 @@ export default class ExplainerCard extends React.Component {
       optionalConfigJSON: {},
       optionalConfigSchemaJSON: undefined
     };
+
     if (this.props.dataJSON) {
       stateVar.fetchingData = false;
       stateVar.dataJSON = this.props.dataJSON;
@@ -26,11 +27,14 @@ export default class ExplainerCard extends React.Component {
 
     if (this.props.optionalConfigJSON) {
       stateVar.optionalConfigJSON = this.props.optionalConfigJSON;
-      stateVar.optionalConfigJSON.band_color = this.props.houseColors.house_color;
     }
 
     if (this.props.optionalConfigSchemaJSON) {
       stateVar.optionalConfigSchemaJSON = this.props.optionalConfigSchemaJSON;
+    }
+
+    if (this.props.siteConfigs) {
+      stateVar.siteConfigs = this.props.siteConfigs;
     }
 
     this.state = stateVar;
@@ -43,9 +47,14 @@ export default class ExplainerCard extends React.Component {
   componentDidMount() {
     // get sample json data based on type i.e string or object
     if (this.state.fetchingData){
-      axios.all([axios.get(this.props.dataURL), axios.get(this.props.schemaURL), axios.get(this.props.optionalConfigURL), axios.get(this.props.optionalConfigSchemaURL)])
-        .then(axios.spread((card, schema, opt_config, opt_config_schema) => {
-          this.setState({
+      axios.all([
+        axios.get(this.props.dataURL),
+        axios.get(this.props.schemaURL),
+        axios.get(this.props.optionalConfigURL),
+        axios.get(this.props.optionalConfigSchemaURL),
+        axios.get(this.props.siteConfigURL)
+      ]).then(axios.spread((card, schema, opt_config, opt_config_schema, site_configs) => {
+          let stateVar = {
             fetchingData: false,
             dataJSON: {
               card_data: card.data,
@@ -53,8 +62,11 @@ export default class ExplainerCard extends React.Component {
             },
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
-            optionalConfigSchemaJSON: opt_config_schema.data
-          });
+            optionalConfigSchemaJSON: opt_config_schema.data,
+            siteConfigs: site_configs.data
+          };
+          stateVar.optionalConfigJSON.band_color = stateVar.siteConfigs.house_colour;
+          this.setState(stateVar);
         }));
     } else {
       this.componentDidUpdate();
