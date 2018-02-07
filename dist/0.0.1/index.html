@@ -1,150 +1,110 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset = "UTF-8">
+
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explainer Card</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.protograph.pykih.com/Assets/semantic.min.css">
-    <script type="text/javascript">
-     var siteId, origin, base_url;
-     // Setting variables from environment
-     origin = window.location.origin;
-     if (origin == 'https://s3.ap-south-1.amazonaws.com') {
-       let bucket_name = window.location.pathname.split('/')['1'];
-       base_url = origin + "/" + bucket_name;
-       switch(bucket_name){
-         case "cdn.protograph":
-           siteId = '1';
-           break;
-         case "staging.cdn.protograph":
-           siteId = '2';
-           break;
-       }
-     } else if (origin === 'https://dkqrqc7q64awx.cloudfront.net') {
-       siteId = '2';
-       base_url = origin;
-     } else {
-       siteId = '1';
-       base_url = origin;
-     }
-     // Uncomment below lines in development
-     /* base_url = "https://dnt71st2q6cqr.cloudfront.net";
-      * siteId = 2;*/
-     if(siteId){
-       var _paq = _paq || [];
-       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-       _paq.push(['trackPageView']);
-       _paq.push(['enableLinkTracking']);
-       (function() {
-         var u="//protograph.innocraft.cloud/";
-         _paq.push(['setTrackerUrl', u+'piwik.php']);
-         _paq.push(['setSiteId', siteId]);
-         var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-         g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-       })();
-     }
-    </script>
+</head>
 
-  </head>
-  <body>
+<body>
     <div id="explainer-div"></div>
     <link rel="stylesheet" type="text/css" href="card.min.css">
     <script src="https://cdn.protograph.pykih.com/lib/protograph-core.min.js"></script>
-    <script src = "card.min.js"></script>
+    <script src="card.min.js"></script>
     <script type="text/javascript">
-     var x = new ProtoGraph.Card.toExplain();
-     function findGetParameter(parameterName) {
-       var result = null,
-           tmp = [],
-           search_url = decodeURIComponent(location.search);
+    var x = new ProtoGraph.Card.toExplain();
 
-       search_url
-         .substr(1)
-         .split("&")
-         .forEach(function (item) {
-           tmp = item.split("=");
-           if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-         });
-       return result;
-     }
+    function findGetParameter(parameterName) {
+        var result = null,
+            tmp = [],
+            search_url = decodeURIComponent(location.search);
 
-     let view_cast_id = findGetParameter('view_cast_id'),
-         schema_id = findGetParameter('schema_id');
+        search_url
+            .substr(1)
+            .split("&")
+            .forEach(function(item) {
+                tmp = item.split("=");
+                if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            });
+        return result;
+    }
 
-      if (siteId && view_cast_id) {
-        _paq.push(['trackEvent', 'toExplain', 'page_view', view_cast_id]);
-      }
+    let view_cast_id = findGetParameter('view_cast_id'),
+        schema_id = findGetParameter('schema_id'),
+        base_url = findGetParameter('base_url') || "https://cdn.protograph.pykih.com",
+        schema_base_url = "https://cdn.protograph.pykih.com";
 
-     var ReceiverConsumer = Oasis.Consumer.extend({
-       requests: {
-         receive: function(mode, readMoreEnabled) {
-           if(typeof (view_cast_id) !== 'undefined' && typeof(schema_id) !== 'undefined'){
-             var that = this,
-                 data_base_path = base_url + "/" + view_cast_id,
-                 schema_base_path = base_url + "/" + schema_id;
+    var ReceiverConsumer = Oasis.Consumer.extend({
+        requests: {
+            receive: function(mode, readMoreEnabled) {
+                if (typeof(view_cast_id) !== 'undefined' && typeof(schema_id) !== 'undefined') {
+                    var that = this,
+                        data_base_path = base_url + "/" + view_cast_id,
+                        schema_base_path = schema_base_url + "/" + schema_id;
 
-             x.init({
-               viewCastId: view_cast_id,
-               selector: document.querySelector('#explainer-div'),
-               data_url: data_base_path + "/data.json",
-               schema_url: schema_base_path + "/schema.json",
-               configuration_url: data_base_path + "/view_cast.json",
-               configuration_schema_url: 'configuration_schema.json',
-               piwikCallback: function (category, action, name) {
-                 _paq.push(['trackEvent', category, action, name]);
-               },
-               onClickCallback: function () {
-                 let h = x.getData().height;
-                 that.send('resize_frame', {width: '100%', height: h})
-               }
-             })
-             renderWithMode(mode, readMoreEnabled);
-           }
-         }
-       },
-       events: {
-         get_size: function(){
-           var that = this;
-           var intervalId = setInterval(function(){
-             try {
-               clientRect = x.getData();
-               if(clientRect.height){
-                 var height = clientRect.height,
-                     width = clientRect.width;
-                 that.send("resize_frame", {height: height, width: width});
-                 clearInterval(intervalId);
-               }
-             } catch (err) {}
-           }, 10)
+                    console.log(data_base_path+"/data.json", schema_base_path+"/schema.json");
+                    x.init({
+                        viewCastId: view_cast_id,
+                        selector: document.querySelector('#explainer-div'),
+                        data_url: data_base_path + "/data.json",
+                        schema_url: schema_base_path + "/schema.json",
+                        configuration_url: data_base_path + "/view_cast.json",
+                        configuration_schema_url: './configuration_schema.json',
+                        site_config_url: "./header.json",
+                        onClickCallback: function() {
+                            let h = x.getData().height;
+                            that.send('resize_frame', { width: '100%', height: h })
+                        }
+                    })
+                    renderWithMode(mode, readMoreEnabled);
+                }
+            }
+        },
+        events: {
+            get_size: function() {
+                var that = this;
+                var intervalId = setInterval(function() {
+                    try {
+                        clientRect = x.getData();
+                        if (clientRect.height) {
+                            var height = clientRect.height,
+                                width = clientRect.width;
+                            that.send("resize_frame", { height: height, width: width });
+                            clearInterval(intervalId);
+                        }
+                    } catch (err) {}
+                }, 10)
 
-         },
-         change_mode: function(mode, readMoreEnabled){
-           renderWithMode(mode, readMoreEnabled);
-           var that = this;
-           setTimeout(function(){
-             height = x.getData().height;
-             that.send("resize_frame", {height: height});
-           })
-         }
-       }
-     });
-     oasis.connect({
-       consumers: {
-         receive: ReceiverConsumer
-       }
-     });
+            },
+            change_mode: function(mode, readMoreEnabled) {
+                renderWithMode(mode, readMoreEnabled);
+                var that = this;
+                setTimeout(function() {
+                    height = x.getData().height;
+                    that.send("resize_frame", { height: height });
+                })
+            }
+        }
+    });
+    oasis.connect({
+        consumers: {
+            receive: ReceiverConsumer
+        }
+    });
 
-     function renderWithMode(mode, readMoreEnabled) {
-       switch(mode){
-         case "laptop":
-           x.renderLaptop(readMoreEnabled);
-           break;
-         case "mobile":
-           x.renderMobile(readMoreEnabled);
-           break;
-       }
-     }
-
+    function renderWithMode(mode, readMoreEnabled) {
+        switch (mode) {
+            case "laptop":
+                x.renderLaptop(readMoreEnabled);
+                break;
+            case "mobile":
+                x.renderMobile(readMoreEnabled);
+                break;
+        }
+    }
     </script>
-  </body>
+</body>
+
 </html>
